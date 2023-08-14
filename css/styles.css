@@ -197,24 +197,24 @@ a.custom-card:hover {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  color: white;
+  background-image: radial-gradient(#004f8f, #005ca7, #0087F7);
+  color: black;
 }
 
 .card{
   width: 450px;
-  height: 350px;
+  height: 500px;
   border: none;
   justify-content: center;
-  background-color: #00437a;
+  background-color: white;
   border-radius: 15px;
   text-align: center;
   }
 
 .card h1 {
-  color: white;
   font-size: 40px;
   text-align: center;
-  font-weight: 800;
+  font-weight: 600;
   margin: 15px 0 20px;
 }
 
@@ -225,17 +225,20 @@ a.custom-card:hover {
 .login-details input {
   width: 400px;
   color: black;
-  border: none;
+  border: solid;
+  border-width: 1px;
   border-radius: 5px;
   margin: 0 25px;
 }
 
 .login-details input:hover{
-  background-color: lightgrey;
+  background-color: lightgray;
 }
 
 .login-details input::placeholder{
   padding-left: 15px;
+  color: black;
+  font-weight: 400;
 }
 
 #inicio {
@@ -244,8 +247,9 @@ a.custom-card:hover {
   font-size: 20px;
   border: solid;
   border-color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   margin: 10px 75px;
+  background-color: #004f8f;
 }
 
 #inicio:hover{
@@ -258,12 +262,12 @@ a.custom-card:hover {
 }
 
 a{
-  color: black;
+  color: blue;
   text-decoration: none;
 }
 
 a:hover{
   transform: scale(105%);
   text-decoration: underline;
-  color: white;
+  color: red;
 }
