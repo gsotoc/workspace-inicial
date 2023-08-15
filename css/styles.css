@@ -209,6 +209,7 @@ a.custom-card:hover {
   background-color: white;
   border-radius: 15px;
   text-align: center;
+  padding: 15px 5px;
   }
 
 .card h1 {
@@ -219,7 +220,7 @@ a.custom-card:hover {
 }
 
 .card .login-details{
-  height: 40px;
+  margin-bottom: 30px;
 }
 
 .login-details input {
@@ -248,8 +249,12 @@ a.custom-card:hover {
   border: solid;
   border-color: white;
   border-radius: 8px;
-  margin: 10px 75px;
+  margin: 15px 75px;
   background-color: #004f8f;
+}
+
+#olvide_recordar input{
+  margin-bottom: 5px;
 }
 
 #inicio:hover{
