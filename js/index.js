@@ -12,3 +12,16 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+//Desafíate: Usamos sessionStorage para ver si el usuario se loggeo previamente y de esta manera lo redirigimos
+//en el caso contrario
+
+document.addEventListener("DOMContentLoaded", function() {
+    user=sessionStorage.getItem("user");
+    contenedor=document.getElementById("welcomeMessage");
+    if (user!=null) {
+    } else {
+        location.replace("login.html")
+    }
+    
+    
+  });
