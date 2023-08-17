@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     loginForm.addEventListener("submit", function(event) {
       event.preventDefault();    
       if (document.getElementById("user")!=""&&document.getElementById("pasw")!="") {
-        sessionStorage.setItem("user",document.getElementById("user").value);
+        localStorage.setItem("user",document.getElementById("user").value);
         alert("Ha iniciado sesión con éxito")
         setTimeout(()=>{
           location.replace("index.html")
