@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(){
 //en el caso contrario
 
 document.addEventListener("DOMContentLoaded", function() {
-    user=sessionStorage.getItem("user");
+    user=localStorage.getItem("user");
     contenedor=document.getElementById("welcomeMessage");
     if (user!=null) {
     } else {
