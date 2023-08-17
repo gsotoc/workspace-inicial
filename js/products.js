@@ -8,11 +8,21 @@ let currentproductsArray = [];
 let currentSortCriteria = undefined;
 let minCost = undefined;
 let maxCost = undefined;
-
+const rangeFilterCostMin= document.getElementById("rangeFilterCostMin");
+const rangeFilterCostMax= document.getElementById("rangeFilterCostMax");
+const sortAscBtn=document.getElementById("sortAsc");
+const rangeFilterCost=document.getElementById("rangeFilterCost");
+const clearRangeFilterBtn=document.getElementById("clearRangeFilter");
+const sortByCostBtn=document.getElementById("sortByCost");
+const sortDescBtn=document.getElementById("sortDesc");
+const categoryNameH2=document.getElementById("categoryName");
+const productsContainer=document.getElementById("productsContainer");
+//Guardamos en localStorage el ProductId para posteriormente saber que producto estamos mostrando en caso de entrar a product-info.html
 function setProductID(id){
     localStorage.setItem("productID", id);
     window.location = "product-info.html"
 }
+//Ordenamos el array que contiene todos los productos dependiendo del criterio que se haya elegido mediante los botones
 function sortAndShowProducts(sortCriteria, productsArray){
     currentSortCriteria = sortCriteria;
     if(productsArray != undefined){
@@ -25,25 +35,31 @@ function sortAndShowProducts(sortCriteria, productsArray){
     //Muestro las categorías ordenadas
     printProducts();
 }
+
 function sortProducts(criteria, array){
-    
+    //Creamos la variable result, donde se almacenarán todos los productos ordenados
     let result = [];
+    //En caso de que el boton apretado haya sido el de ordenar por nombre de manera ascendente
     if (criteria === ORDER_ASC_BY_NAME)
     {
+
         result = array.sort(function(a, b) {
-            
+            //Esta funcion ordena de forma alfabética ascendente con su nombre todos los productos del array.
             if ( a.name < b.name ){ return -1; }
             if ( a.name > b.name ){ return 1; }
+            //Devolvemos 0 para terminar la ejecución de esta función
             return 0;
         });
     }else if (criteria === ORDER_DESC_BY_NAME){
         result = array.sort(function(a, b) {
+            //Esta funcion ordena de forma alfabética descendente con su nombre todos los productos del array.
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
     }else if (criteria === ORDER_BY_PROD_COST){
         result = array.sort(function(a, b) {
+            //Esta funcion ordena de forma descendente con su precio todos los productos del array.
             let acost = parseInt(a.cost);
             let bcost = parseInt(b.cost);
 
@@ -55,12 +71,14 @@ function sortProducts(criteria, array){
 
     return result;
 }
+//Esta función muestra en la página todos los productos de la categoría seleccionada
 async function printProducts(){
-    const productsContainer=document.getElementById("productsContainer");
     let htmlContentToAppend="";
     productsArray.forEach(product => {
+        //Aqui filtramos mediante el rango de precio establecido por el usuario
         if (((minCost == undefined) || (minCost != undefined && parseInt(product.cost) >= minCost)) &&
         ((maxCost == undefined) || (maxCost != undefined && parseInt(product.cost) <= maxCost))){
+            //Agregamos cada producto a la variable con el formato deseado en html
         htmlContentToAppend+=
         `
             <div id="product.id" onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
@@ -79,41 +97,48 @@ async function printProducts(){
             </div>
             `
 }});
+    //Insertamos la variable con todos los productos a la página
     productsContainer.innerHTML=htmlContentToAppend;
-    document.getElementById("categoryName").innerHTML=catName;
+    categoryNameH2.innerHTML=catName;
 }
 document.addEventListener("DOMContentLoaded",async ()=>{
+    //Guardamos el id de la categoría almacenada en localStorage para utilizarla posteriormente
     let catID=localStorage.getItem("catID");
+    //Hacemos la petición con la función getJSONData y así guardarla en la variable catProducts
     let catProducts= await getJSONData(`https://japceibal.github.io/emercado-api/cats_products/${catID}.json`);
+    //Guardamos los específicamente los productos en el array en la variable
      productsArray=catProducts.data.products;
+     //Guardamos el específicamente el nombre de la categoría en la variable
      catName=catProducts.data.catName
-    document.getElementById("sortAsc").addEventListener("click", function(){
+     //Funcionalidad del botón para ordenar de forma alfabética ascendente
+    sortAscBtn.addEventListener("click", function(){
         sortAndShowProducts(ORDER_ASC_BY_NAME,productsArray);
     });
-
-    document.getElementById("sortDesc").addEventListener("click", function(){
+    //Funcionalidad del botón para ordenar de forma alfabética descendente
+    sortDescBtn.addEventListener("click", function(){
         sortAndShowProducts(ORDER_DESC_BY_NAME,productsArray);
     });
-
-    document.getElementById("sortByCost").addEventListener("click", function(){
+    //Funcionalidad de ordenar por precio de forma ascendente
+    sortByCostBtn.addEventListener("click", function(){
         sortAndShowProducts(ORDER_BY_PROD_COST,productsArray);
         
     });
-
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
-        document.getElementById("rangeFilterCostMin").value = "";
-        document.getElementById("rangeFilterCostMax").value = "";
+    //Limpiamos los campos de filtros e imprimimos nuevamente todos los productos pero sin los filtros de precios
+    clearRangeFilterBtn.addEventListener("click", function(){
+        rangeFilterCostMin.value = "";
+        rangeFilterCostMax.value = "";
 
         minCost = undefined;
         maxCost = undefined;
 
         printProducts();
     });
-    document.getElementById("rangeFilterCost").addEventListener("click", function(){
+    //Funcionalidad de los filtros, para que al darle click, actualice la lista de productos pero con el limite que le hayamos indicado
+    rangeFilterCost.addEventListener("click", function(){
         //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
         //de productos por categoría.
-        minCost = document.getElementById("rangeFilterCostMin").value;
-        maxCost = document.getElementById("rangeFilterCostMax").value;
+        minCost = rangeFilterCostMin.value;
+        maxCost = rangeFilterCostMax.value;
 
         if ((minCost != undefined) && (minCost != "") && (parseInt(minCost)) >= 0){
             minCost = parseInt(minCost);
@@ -131,5 +156,6 @@ document.addEventListener("DOMContentLoaded",async ()=>{
 
         printProducts();
     });
+    //Ejecutamos la funcion para imprimir los productos en pantalla de forma inicial
     printProducts();
 })

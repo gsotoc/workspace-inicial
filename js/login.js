@@ -5,16 +5,20 @@ const passwordTxt=document.getElementById("pasw");
 const loginForm = document.getElementById("loginForm");
 
 document.addEventListener("DOMContentLoaded", function(){
+  //Agregamos el evento submit al formulario de inicio de sesión
     loginForm.addEventListener("submit", (event)=> {
       event.preventDefault();    
       if (recordarmeChkBox.checked) {
+        //En caso de que el checkbox esté checkeado, se guardará el usuario en localStorage, de esta manera se mantendrá iniciada la
+        //sesión en caso de que se cierre el navegador.
         localStorage.setItem("user",userTxt.value);
       }
       if (userTxt.value!=""&&passwordTxt.value!="") {
+        //Comprobamos que haya ingresado un nombre y contraseña y guardamos en sessionStorage para que pueda navegar por la página con el usuario
         sessionStorage.setItem("user",userTxt.value);
         alert("Ha iniciado sesión con éxito")
         setTimeout(()=>{
-            
+            //Redirigimos al ususario a la página principal una vez haya ingresado sesión
           location.replace("index.html")
         },1000)
       } 

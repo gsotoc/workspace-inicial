@@ -40,6 +40,7 @@ let getJSONData = function(url){
         return result;
     });
 }
+//Esta funcion se encarga de checkear que el usuario haya ingresado sesión previamente, en caso contrario, se lo devuelve a la página de login
 function checkLog() {
   if (sessionStorage.getItem("user")) {
     user=sessionStorage.getItem("user");
@@ -54,11 +55,12 @@ function checkLog() {
   
 }
 document.addEventListener("DOMContentLoaded", function() {
+
 checkLog();
+//Funcionalidad del botón de cerrar sesion, limpia el usuario de sessionStorage y localStorage, a continuación lo redirigimos a la página de login
 logOutBtn.addEventListener("click",()=>{
   sessionStorage.clear("user");
   localStorage.clear("user");
-  this.location.replace("login.html")
   location.reload();
 })
 });
