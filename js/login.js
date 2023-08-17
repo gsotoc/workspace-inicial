@@ -1,16 +1,22 @@
 // voy a hacer que el boton de iniciar sesión lleve al inicio
-document.addEventListener("DOMContentLoaded", function(){
-    const loginForm = document.getElementById("loginForm");
+const recordarmeChkBox=document.getElementById("recordarme");
+const userTxt=document.getElementById("user");
+const passwordTxt=document.getElementById("pasw");
+const loginForm = document.getElementById("loginForm");
 
-    loginForm.addEventListener("submit", function(event) {
+document.addEventListener("DOMContentLoaded", function(){
+    loginForm.addEventListener("submit", (event)=> {
       event.preventDefault();    
-      if (document.getElementById("user")!=""&&document.getElementById("pasw")!="") {
-        localStorage.setItem("user",document.getElementById("user").value);
+      if (recordarmeChkBox.checked) {
+        localStorage.setItem("user",userTxt.value);
+      }
+      if (userTxt.value!=""&&passwordTxt.value!="") {
+        sessionStorage.setItem("user",userTxt.value);
         alert("Ha iniciado sesión con éxito")
         setTimeout(()=>{
+            
           location.replace("index.html")
         },1000)
       } 
     });
-
 });

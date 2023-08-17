@@ -276,3 +276,10 @@ a:hover{
   text-decoration: underline;
   color: red;
 }
+#userHeader{
+  background-color:rgba(33,37,41,255) ;
+  outline-color: rgba(33,37,41,255);
+}
+nav{
+background-color: rgba(33,37,41,255);
+}
