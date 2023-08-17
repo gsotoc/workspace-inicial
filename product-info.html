@@ -31,10 +31,18 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login.html" id="userHeader">Iniciar sesión</a>
+            <div class="dropdown">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="userHeader" data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userHeader">
+                  <li><a class="dropdown-item" href="my-profile.html">Ver perfil</a></li>
+                  <li><button class="dropdown-item" id="logOut">Cerrar sesión</button></li>
+                </ul>
+              </div>
+            </div>
           </li>
-          <li class="nav-item">
-          </li>
+
         </ul>
       </div>
     </div>

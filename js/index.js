@@ -15,13 +15,3 @@ document.addEventListener("DOMContentLoaded", function(){
 //Desafíate: Usamos sessionStorage para ver si el usuario se loggeo previamente y de esta manera lo redirigimos
 //en el caso contrario
 
-document.addEventListener("DOMContentLoaded", function() {
-    user=localStorage.getItem("user");
-    contenedor=document.getElementById("welcomeMessage");
-    if (user!=null) {
-    } else {
-        location.replace("login.html")
-    }
-    
-    
-  });
