@@ -72,7 +72,7 @@ function sortProducts(criteria, array){
     return result;
 }
 //Esta función muestra en la página todos los productos de la categoría seleccionada
-async function printProducts(){
+function printProducts(){
     let htmlContentToAppend="";
     productsArray.forEach(product => {
         //Aqui filtramos mediante el rango de precio establecido por el usuario

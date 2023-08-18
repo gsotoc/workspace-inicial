@@ -52,7 +52,6 @@ function checkLog() {
   } else {
     location.replace("login.html");
   }
-  
 }
 document.addEventListener("DOMContentLoaded", function() {
 

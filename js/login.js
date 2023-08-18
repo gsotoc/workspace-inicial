@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", function(){
         //sesión en caso de que se cierre el navegador.
         localStorage.setItem("user",userTxt.value);
       }
-      if (userTxt.value!=""&&passwordTxt.value!="") {
-        //Comprobamos que haya ingresado un nombre y contraseña y guardamos en sessionStorage para que pueda navegar por la página con el usuario
+        //Una vez haya ingresado el usuario y contraseña, ya que tiene
+        //el atributo required, guardamos en sessionStorage para que pueda navegar por la página con el usuario
         sessionStorage.setItem("user",userTxt.value);
         alert("Ha iniciado sesión con éxito")
         setTimeout(()=>{
-            //Redirigimos al ususario a la página principal una vez haya ingresado sesión
+          //Redirigimos al ususario a la página principal una vez haya ingresado sesión
           location.replace("index.html")
         },1000)
-      } 
+      
     });
 });
