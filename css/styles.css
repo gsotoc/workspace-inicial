@@ -190,96 +190,39 @@ a.custom-card:hover {
 
 }
 
-/* Voy a agregar estilos al nuevo login */
-
-.contenedor{
+/* Estilos generales del login, todo centrado y que la altura cubra toda la pantalla */
+.contenedor {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: radial-gradient(#004f8f, #005ca7, #0087F7);
-  color: black;
 }
 
-.card{
-  width: 450px;
-  height: 500px;
-  border: none;
-  justify-content: center;
-  background-color: white;
-  border-radius: 15px;
-  text-align: center;
-  padding: 15px 5px;
-  }
+/*Hago que todos los elementos mostrados tengan el mismo ancho, margen automatico 
+en los costados y centro todo*/
 
-.card h1 {
-  font-size: 40px;
-  text-align: center;
-  font-weight: 600;
-  margin: 15px 0 20px;
-}
-
-.card .login-details{
-  margin-bottom: 30px;
-}
-
-.login-details input {
-  width: 400px;
-  color: black;
-  border: solid;
-  border-width: 1px;
-  border-radius: 5px;
-  margin: 0 25px;
-}
-
-.login-details input:hover{
-  background-color: lightgray;
-}
-
-.login-details input::placeholder{
-  padding-left: 15px;
-  color: black;
-  font-weight: 400;
-}
-
-#inicio {
-  width: 300px;
-  color: black;
-  font-size: 20px;
-  border: solid;
-  border-color: white;
-  border-radius: 8px;
-  margin: 15px 75px;
-  background-color: #004f8f;
-}
-
-#olvide_recordar input{
-  margin-bottom: 5px;
-}
-
-#inicio:hover{
-  transform: scale(105%);
-  cursor: pointer;
-}
-
-#registro {
+#imagen-logo, form{
+  width: 50%; 
+  box-sizing: border-box;
+  margin: 0 auto;
   align-items: center;
 }
 
-a{
-  color: blue;
-  text-decoration: none;
+/*Centro los elementos del login*/
+form{
+  text-align: center;
+  align-items: center;
 }
 
-a:hover{
-  transform: scale(105%);
-  text-decoration: underline;
-  color: red;
+/*centro la checkbox*/
+form .form-check{
+  width: 120px;
+  align-items: center;
+  margin: auto;
 }
-#userHeader{
-  background-color:rgba(33,37,41,255) ;
-  outline-color: rgba(33,37,41,255);
-}
-nav{
-background-color: rgba(33,37,41,255);
+
+/*Hago que la foto ocupe el ancho total del div que la contiene, 
+porque sino se salía del mismo*/
+#logo{
+  width: 100%;
 }
