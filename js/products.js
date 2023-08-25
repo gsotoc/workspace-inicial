@@ -1,6 +1,6 @@
 
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
+const ORDER_ASC_BY_COST = "AZ";
+const ORDER_DESC_BY_COST = "ZA";
 const ORDER_BY_PROD_SoldCount = "Count";
 let productsArray=[];
 let catName="";
@@ -42,21 +42,21 @@ function sortProducts(criteria, array){
     //Creamos la variable result, donde se almacenarán todos los productos ordenados
     let result = [];
     //En caso de que el boton apretado haya sido el de ordenar por nombre de manera ascendente
-    if (criteria === ORDER_ASC_BY_NAME)
+    if (criteria === ORDER_ASC_BY_COST)
     {
 
         result = array.sort(function(a, b) {
             //Esta funcion ordena de forma alfabética ascendente con su nombre todos los productos del array.
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
+            if ( a.cost < b.cost ){ return -1; }
+            if ( a.cost > b.cost ){ return 1; }
             //Devolvemos 0 para terminar la ejecución de esta función
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
+    }else if (criteria === ORDER_DESC_BY_COST){
         result = array.sort(function(a, b) {
             //Esta funcion ordena de forma alfabética descendente con su nombre todos los productos del array.
-            if ( a.name > b.name ){ return -1; }
-            if ( a.name < b.name ){ return 1; }
+            if ( a.cost > b.cost ){ return -1; }
+            if ( a.cost < b.cost ){ return 1; }
             return 0;
         });
     }else if (criteria === ORDER_BY_PROD_SoldCount){
@@ -114,11 +114,11 @@ document.addEventListener("DOMContentLoaded",async ()=>{
      catName=catProducts.data.catName
      //Funcionalidad del botón para ordenar de forma alfabética ascendente
     sortAscBtn.addEventListener("click", function(){
-        sortAndShowProducts(ORDER_ASC_BY_NAME,productsArray);
+        sortAndShowProducts(ORDER_ASC_BY_COST,productsArray);
     });
     //Funcionalidad del botón para ordenar de forma alfabética descendente
     sortDescBtn.addEventListener("click", function(){
-        sortAndShowProducts(ORDER_DESC_BY_NAME,productsArray);
+        sortAndShowProducts(ORDER_DESC_BY_COST,productsArray);
     });
     //Funcionalidad de ordenar por precio de forma ascendente
     sortByCostBtn.addEventListener("click", function(){
