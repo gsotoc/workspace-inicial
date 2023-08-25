@@ -1,7 +1,7 @@
 // voy a hacer que el boton de iniciar sesión lleve al inicio
 const recordarmeChkBox=document.getElementById("recordarme");
-const userTxt=document.getElementById("user");
-const passwordTxt=document.getElementById("pasw");
+const userTxt=document.getElementById("usuario");
+const passwordTxt=document.getElementById("contraseña");
 const loginForm = document.getElementById("loginForm");
 
 document.addEventListener("DOMContentLoaded", function(){
