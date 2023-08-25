@@ -1,7 +1,7 @@
 
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COST = "Cost.";
+const ORDER_BY_PROD_SoldCount = "Count";
 let productsArray=[];
 let catName="";
 let currentproductsArray = [];
@@ -35,7 +35,9 @@ function sortAndShowProducts(sortCriteria, productsArray){
     //Muestro las categorías ordenadas
     printProducts();
 }
+function filtrarArray(arrayproductos) {
 
+}
 function sortProducts(criteria, array){
     //Creamos la variable result, donde se almacenarán todos los productos ordenados
     let result = [];
@@ -57,14 +59,14 @@ function sortProducts(criteria, array){
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COST){
+    }else if (criteria === ORDER_BY_PROD_SoldCount){
         result = array.sort(function(a, b) {
             //Esta funcion ordena de forma descendente con su precio todos los productos del array.
-            let acost = parseInt(a.cost);
-            let bcost = parseInt(b.cost);
+            let acount = parseInt(a.soldCount);
+            let bcount = parseInt(b.soldCount);
 
-            if ( acost > bcost ){ return -1; }
-            if ( acost < bcost ){ return 1; }
+            if ( acount > bcount ){ return -1; }
+            if ( acount < bcount ){ return 1; }
             return 0;
         });
     }
@@ -120,7 +122,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     });
     //Funcionalidad de ordenar por precio de forma ascendente
     sortByCostBtn.addEventListener("click", function(){
-        sortAndShowProducts(ORDER_BY_PROD_COST,productsArray);
+        sortAndShowProducts(ORDER_BY_PROD_SoldCount,productsArray);
         
     });
     //Limpiamos los campos de filtros e imprimimos nuevamente todos los productos pero sin los filtros de precios
