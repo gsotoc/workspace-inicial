@@ -33,7 +33,8 @@
           <li class="nav-item">
             <div class="dropdown">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="userHeader" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="userHeader"
+                  data-bs-toggle="dropdown" aria-expanded="false">
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="userHeader">
                   <li><a class="dropdown-item" href="my-profile.html">Ver perfil</a></li>
@@ -55,47 +56,78 @@
       <div class="row">
         <div class="col text-end">
           <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
-            <input type="text" id="search">
             <input type="radio" class="btn-check" name="options" id="sortAsc">
-            <label class="btn btn-light" for="sortAsc"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i></label>
+            <label class="btn btn-light" for="sortAsc">
+              <svg width="39" height="24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path d="m4,16l9,0" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" id="svg_1"/>
+                <path d="m6,11l7,0" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" id="svg_2"/>
+                <path d="m8,6l5,0" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" id="svg_3"/>
+                <path d="m17,4l0,16l3,-4" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="svg_4"/>
+                <text stroke-width="2" fill="white" stroke="#1C274C" x="20.90624" y="18.17285" id="svg_5" font-size="19" font-family="'Inter'" text-anchor="start" xml:space="preserve">$</text>
+              </svg>
+            </label>
             <input type="radio" class="btn-check" name="options" id="sortDesc">
-            <label class="btn btn-light" for="sortDesc"><i class="fas fa-arrow-down-wide-short mr-1"></i></label>
+            <label class="btn btn-light" for="sortDesc">
+              <svg width="42" height="24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path id="svg_1" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m4,8l9,0"/>
+                <path id="svg_2" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m6,13l7,0"/>
+                <path id="svg_3" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m8,18l5,0"/>
+                <path id="svg_4" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m17,20l0,-16l3,4"/>
+                <text xml:space="preserve" text-anchor="start" font-family="'Inter'" font-size="19" id="svg_5" y="19.10784" x="21.14706" stroke-width="2" stroke="#1C274C" fill="white">$</text>
+              </svg>
+            </label>
             <input type="radio" class="btn-check" name="options" id="sortByRel" checked>
-            <label class="btn btn-light" for="sortByRel"><i class="fas fa-sort-amount-down mr-1"></i></label>
+            <label class="btn btn-light" for="sortByRel">
+              <svg width="40" height="30" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path id="svg_1" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m1.66423,7.27007l9,0"/>
+                <path id="svg_2" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m3.66423,12.27007l7,0"/>
+                <path id="svg_3" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m5.66423,17.27007l5,0"/>
+                <path id="svg_4" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#1C274C" d="m13.05839,19.12409l0,-16l3,4"/>
+                <text style="cursor: move;" font-weight="normal" stroke-linejoin="round" stroke-linecap="round" xml:space="preserve" text-anchor="start" font-family="'Inter'" font-size="12" id="svg_5" y="20.16306" x="13.7842" stroke="#1C274C" fill="white" stroke-width="1.5">Rel.</text>
+              </svg>
+            </label>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
-        <div class="row container p-0 m-0">
-          <div class="col">
-            <p class="font-weight-normal text-end my-2">Precio -</p>
-          </div>
-          <div class="col">
-            <input class="form-control" type="number" placeholder="min." id="rangeFilterCostMin">
-          </div>
-          <div class="col">
-            <input class="form-control" type="number" placeholder="máx." id="rangeFilterCostMax">
-          </div>
-          <div class="col-3 p-0">
-            <div class="btn-group" role="group">
-              <button class="btn btn-light btn-block" id="rangeFilterCost">Filtrar</button>
-              <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+      <div class="container row text-end px-0">
+        <div class="col-lg-6  col-md-12 mb-1">
+          <input type="search" id="search" class="form-control" placeholder="Buscar" />
+        </div>
+        <div class="col-lg-6  col-md-12 mb-1 container">
+          <div class="row container p-0 m-0">
+            <div class="col">
+              <p class="font-weight-normal text-end my-2">Precio -</p>
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterCostMin">
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCostMax">
+            </div>
+            <div class="col-3 p-0">
+              <div class="btn-group" role="group">
+                <button class="btn btn-light btn-block" id="rangeFilterCost">Filtrar</button>
+                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+              </div>
             </div>
           </div>
         </div>
+
+
       </div>
-    
+
       <div id="productsContainer">
-      </div> 
+      </div>
     </div>
-       
+
   </main>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <div id="spinner-wrapper">
