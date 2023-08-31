@@ -1,7 +1,7 @@
 
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COST = "Cost.";
+const ORDER_ASC_BY_COST = "AZ";
+const ORDER_DESC_BY_COST = "ZA";
+const ORDER_BY_PROD_SoldCount = "Count";
 let productsArray=[];
 let catName="";
 let currentproductsArray = [];
@@ -13,10 +13,11 @@ const rangeFilterCostMax= document.getElementById("rangeFilterCostMax");
 const sortAscBtn=document.getElementById("sortAsc");
 const rangeFilterCost=document.getElementById("rangeFilterCost");
 const clearRangeFilterBtn=document.getElementById("clearRangeFilter");
-const sortByCostBtn=document.getElementById("sortByCost");
+const sortByRelBtn=document.getElementById("sortByRel");
 const sortDescBtn=document.getElementById("sortDesc");
 const categoryNameH2=document.getElementById("categoryName");
 const productsContainer=document.getElementById("productsContainer");
+const searchTxt=document.getElementById("search");
 //Guardamos en localStorage el ProductId para posteriormente saber que producto estamos mostrando en caso de entrar a product-info.html
 function setProductID(id){
     localStorage.setItem("productID", id);
@@ -33,38 +34,45 @@ function sortAndShowProducts(sortCriteria, productsArray){
     currentproductsArray = sortProducts(currentSortCriteria, currentproductsArray);
 
     //Muestro las categorías ordenadas
-    printProducts();
+    printProducts(productsArray);
 }
+function filtrarArray(arrayproductos) {
+    let productsFiltered=[]
+    arrayproductos.some((producto)=>{
+    producto.name.toUpperCase().includes(searchTxt.value.toUpperCase())?productsFiltered.push(producto):"";
+    printProducts(productsFiltered);
+    })
 
+}
 function sortProducts(criteria, array){
     //Creamos la variable result, donde se almacenarán todos los productos ordenados
     let result = [];
     //En caso de que el boton apretado haya sido el de ordenar por nombre de manera ascendente
-    if (criteria === ORDER_ASC_BY_NAME)
+    if (criteria === ORDER_ASC_BY_COST)
     {
 
         result = array.sort(function(a, b) {
             //Esta funcion ordena de forma alfabética ascendente con su nombre todos los productos del array.
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
+            if ( a.cost < b.cost ){ return -1; }
+            if ( a.cost > b.cost ){ return 1; }
             //Devolvemos 0 para terminar la ejecución de esta función
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
+    }else if (criteria === ORDER_DESC_BY_COST){
         result = array.sort(function(a, b) {
             //Esta funcion ordena de forma alfabética descendente con su nombre todos los productos del array.
-            if ( a.name > b.name ){ return -1; }
-            if ( a.name < b.name ){ return 1; }
+            if ( a.cost > b.cost ){ return -1; }
+            if ( a.cost < b.cost ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COST){
+    }else if (criteria === ORDER_BY_PROD_SoldCount){
         result = array.sort(function(a, b) {
             //Esta funcion ordena de forma descendente con su precio todos los productos del array.
-            let acost = parseInt(a.cost);
-            let bcost = parseInt(b.cost);
+            let acount = parseInt(a.soldCount);
+            let bcount = parseInt(b.soldCount);
 
-            if ( acost > bcost ){ return -1; }
-            if ( acost < bcost ){ return 1; }
+            if ( acount > bcount ){ return -1; }
+            if ( acount < bcount ){ return 1; }
             return 0;
         });
     }
@@ -72,9 +80,9 @@ function sortProducts(criteria, array){
     return result;
 }
 //Esta función muestra en la página todos los productos de la categoría seleccionada
-function printProducts(){
+function printProducts(productos){
     let htmlContentToAppend="";
-    productsArray.forEach(product => {
+    productos.forEach(product => {
         //Aqui filtramos mediante el rango de precio establecido por el usuario
         if (((minCost == undefined) || (minCost != undefined && parseInt(product.cost) >= minCost)) &&
         ((maxCost == undefined) || (maxCost != undefined && parseInt(product.cost) <= maxCost))){
@@ -110,17 +118,21 @@ document.addEventListener("DOMContentLoaded",async ()=>{
      productsArray=catProducts.data.products;
      //Guardamos el específicamente el nombre de la categoría en la variable
      catName=catProducts.data.catName
+     //Buscador en tiempo real
+     searchTxt.addEventListener("input",()=>{
+        filtrarArray(productsArray);
+     })
      //Funcionalidad del botón para ordenar de forma alfabética ascendente
     sortAscBtn.addEventListener("click", function(){
-        sortAndShowProducts(ORDER_ASC_BY_NAME,productsArray);
+        sortAndShowProducts(ORDER_ASC_BY_COST,productsArray);
     });
     //Funcionalidad del botón para ordenar de forma alfabética descendente
     sortDescBtn.addEventListener("click", function(){
-        sortAndShowProducts(ORDER_DESC_BY_NAME,productsArray);
+        sortAndShowProducts(ORDER_DESC_BY_COST,productsArray);
     });
     //Funcionalidad de ordenar por precio de forma ascendente
-    sortByCostBtn.addEventListener("click", function(){
-        sortAndShowProducts(ORDER_BY_PROD_COST,productsArray);
+    sortByRelBtn.addEventListener("click", function(){
+        sortAndShowProducts(ORDER_BY_PROD_SoldCount,productsArray);
         
     });
     //Limpiamos los campos de filtros e imprimimos nuevamente todos los productos pero sin los filtros de precios
@@ -131,7 +143,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
         minCost = undefined;
         maxCost = undefined;
 
-        printProducts();
+        printProducts(productsArray);
     });
     //Funcionalidad de los filtros, para que al darle click, actualice la lista de productos pero con el limite que le hayamos indicado
     rangeFilterCost.addEventListener("click", function(){
@@ -154,8 +166,8 @@ document.addEventListener("DOMContentLoaded",async ()=>{
             maxCost = undefined;
         }
 
-        printProducts();
+        printProducts(productsArray);
     });
     //Ejecutamos la funcion para imprimir los productos en pantalla de forma inicial
-    printProducts();
+    printProducts(productsArray);
 })
