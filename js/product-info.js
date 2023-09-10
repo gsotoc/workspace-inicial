@@ -44,6 +44,7 @@ function printProductInfo(product) {
         <div class="row">
             <h2 class="col-9">${productName}</h2>
             <h4>$${productCost} <span>${productCurrency}</span></h4>
+            <h5>Descripción del producto:</h5>
             <p>${productDescription}</p>
         </div>
         <div class="position-absolute top-0 end-0">
@@ -54,6 +55,7 @@ function printProductInfo(product) {
   </div>`
   productContainer.innerHTML=htmlContentToAppend;
 }
+
 document.addEventListener("DOMContentLoaded",async ()=>{
     let productID=localStorage.getItem("productID");
     let product=await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
