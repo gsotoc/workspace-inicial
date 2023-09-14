@@ -70,14 +70,12 @@ const btnEnviar = document.getElementById("send");
 const container = document.getElementById("commentContainer");
 let txtArray = JSON.parse(localStorage.getItem("txtArray")) || [];
 
-// Función que guarda el texto ingresado en localStorage
-function guardarTxt(texto) {
-    txtArray.push(texto); 
-    localStorage.setItem("txtArray", JSON.stringify(txtArray));
-}
+// // Función que guarda el texto ingresado en localStorage
+// function guardarTxt(texto) {
+//     txtArray.push(texto); 
+//     localStorage.setItem("txtArray", JSON.stringify(txtArray));
+// }
 
-const usuario = localStorage.getItem("user");
-console.log(usuario);
 
 
 // Función que imprime el texto en pantalla
@@ -94,22 +92,25 @@ function printComment(Array) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    btnEnviar.addEventListener("click", () => { 
+    btnEnviar.addEventListener("click", async() => { 
+    let productID=localStorage.getItem("productID");
+    let product=await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
       if(comentario.value!="" && comentario.value!= " "){
 
         const rating = localStorage.getItem("rating");
         const usuario = sessionStorage.getItem("user");
+        const prodID= localStorage.getItem("productID");
         
-        const infoComentario = {
+        let infoComentario = {
+          productId: prodID,
           user: usuario,
           date: new Date().toLocaleDateString(),
           rating: rating,
           comment: comentario.value
         };
-
-        guardarTxt(infoComentario);
+      product.data.comentario = infoComentario; 
+      console.log(product);
       }
-        comentario.value = "";
         printComment(txtArray);
     });
 });
@@ -130,3 +131,8 @@ selectedRating.forEach(estrella=>{
     localStorage.setItem("rating", rating)
   })
 });
+
+async function printenconsola(url){
+  console.log(await getJSONData(url));
+}
+console.log("https://japceibal.github.io/emercado-api/products_comments/");
