@@ -171,3 +171,32 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     //Ejecutamos la funcion para imprimir los productos en pantalla de forma inicial
     printProducts(productsArray);
 })
+
+const comentario = document.getElementById("comment");
+const btnEnviar = document.getElementById("send");
+const container = document.getElementById("commentContainer");
+let txtArray = JSON.parse(localStorage.getItem("txtArray")) || [];
+
+// Función que guarda el texto ingresado en localStorage
+function guardarTxt(texto) {
+    txtArray.push(texto); 
+    localStorage.setItem("txtArray", JSON.stringify(txtArray));
+}
+
+// Función que imprime el texto en pantalla
+function printComment(Array) {
+    // Vacío el div contenedor
+    container.innerHTML = "";
+    Array.forEach(elem => {
+        container.innerHTML += `<p>${elem}</p>`; 
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    btnEnviar.addEventListener("click", () => { 
+        guardarTxt(comentario.value);
+        comentario.value = "";
+        printComment(txtArray);
+    });
+    printComment(txtArray);
+});

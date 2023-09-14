@@ -60,5 +60,73 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     let productID=localStorage.getItem("productID");
     let product=await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
     product=product.data
+    console.log(product);
     printProductInfo(product);
 })
+
+//funcionalidad comentarios
+const comentario = document.getElementById("comment");
+const btnEnviar = document.getElementById("send");
+const container = document.getElementById("commentContainer");
+let txtArray = JSON.parse(localStorage.getItem("txtArray")) || [];
+
+// Función que guarda el texto ingresado en localStorage
+function guardarTxt(texto) {
+    txtArray.push(texto); 
+    localStorage.setItem("txtArray", JSON.stringify(txtArray));
+}
+
+const usuario = localStorage.getItem("user");
+console.log(usuario);
+
+
+// Función que imprime el texto en pantalla
+function printComment(Array) {
+    // Vacío el div contenedor
+    container.innerHTML = "";
+    Array.forEach(elem => {
+        container.innerHTML += `
+                                <div class="row list-group-item">
+                                  <p>${elem.user} - ${elem.date}</p>
+                                  <p>${elem.comment}</p>
+                                </div>`; 
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    btnEnviar.addEventListener("click", () => { 
+      if(comentario.value!="" && comentario.value!= " "){
+
+        const rating = localStorage.getItem("rating");
+        const usuario = sessionStorage.getItem("user");
+        
+        const infoComentario = {
+          user: usuario,
+          date: new Date().toLocaleDateString(),
+          rating: rating,
+          comment: comentario.value
+        };
+
+        guardarTxt(infoComentario);
+      }
+        comentario.value = "";
+        printComment(txtArray);
+    });
+});
+
+//ratings
+const selectedRating = document.querySelectorAll(".fa-star");
+
+selectedRating.forEach(estrella=>{
+  estrella.addEventListener("click",(e)=>{
+    const rating = e.target.getAttribute("value");
+
+//Agrego el atributo checked a todos las estrellas
+    selectedRating.forEach(item => {
+      if(item.getAttribute("value") <= rating){
+        item.classList.add("checked")
+      }
+    })
+    localStorage.setItem("rating", rating)
+  })
+});
