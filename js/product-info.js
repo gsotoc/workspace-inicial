@@ -1,4 +1,5 @@
 const productContainer=document.getElementById("productContainer");
+let commentArray=[];
 function printProductInfo(product) {
     const productImg=product.images;
     const productName=product.name;
@@ -56,9 +57,136 @@ function printProductInfo(product) {
   productContainer.innerHTML=htmlContentToAppend;
 }
 
+function formatearFecha(fecha) {
+  const dia = fecha.getDate().toString().padStart(2, '0');
+  const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+  const anio = fecha.getFullYear();
+  const horas = fecha.getHours().toString().padStart(2, '0');
+  const minutos = fecha.getMinutes().toString().padStart(2, '0');
+  const segundos= fecha.getSeconds().toString().padStart(2, '0');
+  return `${anio}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+}
+
 document.addEventListener("DOMContentLoaded",async ()=>{
+  //Tomamos los datos del producto según su ID el cual tenemos almacenado en localStorage
     let productID=localStorage.getItem("productID");
     let product=await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
-    product=product.data
+    product=product.data;
+    //Tomamos los comentarios guardados en localStorage
+    let comentariosLocalStorage=JSON.parse(localStorage.getItem("comments"))||[];
+    let comentariosLocalStorageProduct=[]
+    //Filtramos los comentarios dependiendo el producto en el que estemos y lo guardamos en comentariosLocalStorageProduct
+    comentariosLocalStorage.forEach((comentario)=>{
+      if (comentario.product==productID) {
+        comentariosLocalStorageProduct.push(comentario)
+      }
+    })
+    //Imprimimos la información del producto
     printProductInfo(product);
+    //Tomamos los comentarios de la API
+    let comentarios=await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID+EXT_TYPE);
+    comentarios=comentarios.data
+    //Juntamos los comentarios del producto que tenemos en localStorage y los que tomamos de la API, los guardamos en un array llamado commentArray
+    commentArray=commentArray.concat(comentarios,comentariosLocalStorageProduct)
+    //Imprimimos los comentarios pasando como parámetro el array que sumamos anteriormente
+    printComment(commentArray);
+    //Creamos el evento del boton de enviar comentario
+    btnEnviar.addEventListener("click", async() => { 
+      //checkeamos que el campo de comentario no esté vacío
+      if(comentario.value.trim()!=""){
+        //limpiamos el commentArray para no sumar más comentarios cada vez que ingresamos uno nuevo
+        commentArray=comentarios;
+        //Declaramos variables que usaremos posteriormente
+        const rating = localStorage.getItem("rating");
+        const usuario = sessionStorage.getItem("user")||localStorage.getItem("user");
+        //Creamos el objeto del comentario a guardar con su respectivo formato
+        let infoComentario = {
+          product: productID,
+          user: usuario,
+          dateTime: formatearFecha(new Date()),
+          score: rating,
+          description: comentario.value
+        };        
+        //sumamos el comentario al array que contiene todos los comentarios de localStorage
+        comentariosLocalStorage.push(infoComentario);
+        //lo sumamos también al array que usamos para almacenar los comentarios de este producto
+        comentariosLocalStorageProduct.push(infoComentario);
+        //guardamos los comentarios nuevamente en localStorage
+        localStorage.setItem("comments",JSON.stringify(comentariosLocalStorage));
+        //Sumamos nuevamente los comentarios del producto, incluyendo el último agregado
+        commentArray=commentArray.concat(comentariosLocalStorageProduct);
+      }
+      //imprimimos nuevamente todos los comentarios
+      printComment(commentArray);
+      
+    });
+    
 })
+
+//funcionalidad comentarios
+const comentario = document.getElementById("comment");
+const btnEnviar = document.getElementById("send");
+const container = document.getElementById("commentContainer");
+commentArray = JSON.parse(localStorage.getItem("txtArray")) || [];
+
+function updateStars() {
+  const stars = document.querySelectorAll(".star");
+  stars.forEach(function (star) {
+    const rating = parseInt(star.getAttribute("data-rating"));
+    if (rating <= currentRating) {
+      star.classList.add("checked");
+    } else {
+      star.classList.remove("checked");
+    }
+  });
+}
+
+// Función que imprime los comentarios en pantalla
+function printComment(Array) {
+    // Vacío el div contenedor
+    container.innerHTML = "";
+    let htmlContentToAppend=""
+    Array.forEach(elem => {
+        htmlContentToAppend += `
+                                <div class="row list-group-item comment">
+                                  <p>${elem.user} - ${elem.dateTime}-
+                                  <span class="fa fa-star"></span>
+                                  <span class="fa fa-star"></span>
+                                  <span class="fa fa-star"></span>
+                                  <span class="fa fa-star"></span>
+                                  <span class="fa fa-star"></span></p>
+                                  <p>${elem.description}</p>
+                                </div>`; 
+    });
+    container.innerHTML=htmlContentToAppend;
+    checkStars();
+}
+//Esta funcion toma el array de todos los comentarios ingresados y les asigna la clase "checked" a cada estrella según corresponda
+function checkStars() {
+  for (let i = 0; i < commentArray.length; i++) {
+    const element = document.querySelectorAll(".comment");
+    const commentDiv=element[i]
+    for (let j = 0; j < commentArray[i].score; j++) {
+      commentDiv.querySelectorAll(".fa-star")[j].classList.add("checked");
+    }
+  }
+}
+
+//ratings
+const selectedRating = document.querySelectorAll(".fa-star");
+
+selectedRating.forEach(estrella=>{
+  estrella.addEventListener("click",(e)=>{
+    const rating = e.target.getAttribute("value");
+
+//Agrego el atributo checked a todos las estrellas
+    selectedRating.forEach(item => {
+      if(item.getAttribute("value") <= rating){
+        item.classList.add("checked")
+      }else{
+        item.classList.remove("checked")
+      }
+    })
+    localStorage.setItem("rating", rating)
+  })
+});
