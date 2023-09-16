@@ -179,7 +179,7 @@ selectedRating.forEach(estrella=>{
   estrella.addEventListener("click",(e)=>{
     const rating = e.target.getAttribute("value");
 
-//Agrego el atributo checked a todos las estrellas
+//Agrego/remuevo el atributo checked a las estrellas
     selectedRating.forEach(item => {
       if(item.getAttribute("value") <= rating){
         item.classList.add("checked")
