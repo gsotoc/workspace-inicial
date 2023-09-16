@@ -163,10 +163,15 @@ function printComment(Array) {
 }
 //Esta funcion toma el array de todos los comentarios ingresados y les asigna la clase "checked" a cada estrella según corresponda
 function checkStars() {
+  //Este for recorre el array que tenemos guardado actualmente con todos los comentarios del producto
   for (let i = 0; i < commentArray.length; i++) {
+    //Declaramos como "commentDiv" el elemento dentro del DOM que contiene el comentario que tenemos en nuestro array
+    //los índices coinciden ya que los imprimimos a partir del mismo array.
     const element = document.querySelectorAll(".comment");
     const commentDiv=element[i]
     for (let j = 0; j < commentArray[i].score; j++) {
+      //Tomamos las estrellas del commentDiv y le asignamos checked una por una iterando esta funcion 
+      //dependiendo de la puntuación del comentario
       commentDiv.querySelectorAll(".fa-star")[j].classList.add("checked");
     }
   }
@@ -179,7 +184,7 @@ selectedRating.forEach(estrella=>{
   estrella.addEventListener("click",(e)=>{
     const rating = e.target.getAttribute("value");
 
-//Agrego/remuevo el atributo checked a las estrellas
+//Agrego el atributo checked a todos las estrellas
     selectedRating.forEach(item => {
       if(item.getAttribute("value") <= rating){
         item.classList.add("checked")
