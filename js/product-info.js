@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
       printComment(commentArray);
       
     });
+//LISTA DE PRODUCTOS RELACIONADOS
     let listRelatedProduct = product.relatedProducts;
     //MOSTRAR LISTA DE PRODUCTOS RELACIONADOS
     showRelatedProducts(listRelatedProduct);
