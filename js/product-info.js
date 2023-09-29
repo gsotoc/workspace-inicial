@@ -120,7 +120,10 @@ document.addEventListener("DOMContentLoaded",async ()=>{
       printComment(commentArray);
       
     });
-    
+//LISTA DE PRODUCTOS RELACIONADOS
+    let listRelatedProduct = product.relatedProducts;
+    //MOSTRAR LISTA DE PRODUCTOS RELACIONADOS
+    showRelatedProducts(listRelatedProduct);
 })
 
 //funcionalidad comentarios
@@ -195,3 +198,29 @@ selectedRating.forEach(estrella=>{
     localStorage.setItem("rating", rating)
   })
 });
+
+function showRelatedProducts(listRelatedProduct) {
+  const relatedProductsContainer = document.getElementById("relatedProducts");
+
+
+  // Itera a través de los productos relacionados y crea un elemento HTML para cada uno
+  listRelatedProduct.forEach((product) => {
+    const productCard = `
+    <div class="col-md-4 mb-4">
+        <div style="cursor:pointer"  onclick="setProductID(${product.id})" >
+          <img src="${product.image}" alt="${product.name}" class="img-fluid">
+          <p>${product.name}</p>
+        </div>
+      </div>
+
+    `;
+    // Agrega el producto relacionado al contenedor
+    relatedProductsContainer.innerHTML += productCard;
+  });
+}
+
+//Guardamos en localStorage el ProductId para posteriormente saber que producto estamos mostrando en caso de entrar a product-info.html
+function setProductID(id){
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html"
+}
