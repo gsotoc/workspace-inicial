@@ -89,7 +89,7 @@ function printProducts(productos){
             //Agregamos cada producto a la variable con el formato deseado en html
         htmlContentToAppend+=
         `
-            <div id="product.id" onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
+            <li id="product.id" onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
@@ -102,7 +102,7 @@ function printProducts(productos){
                         <p class="mb-1">${product.description}</p>
                     </div>
                 </div>
-            </div>
+            </li>
             `
 }});
     //Insertamos la variable con todos los productos a la página

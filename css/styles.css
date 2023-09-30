@@ -230,3 +230,15 @@ porque sino se salía del mismo*/
 span.font {
   font-size: 25px;
 }
+.modo-noche{
+  background-color: #333;
+  color: white;
+}
+.list-group-dark .list-group-item {
+  background-color: #333; 
+  color: #fff;
+}
+
+.list-group-dark .list-group-item:hover {
+  background-color: #444;
+}
