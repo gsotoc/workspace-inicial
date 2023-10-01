@@ -230,6 +230,8 @@ porque sino se salía del mismo*/
 span.font {
   font-size: 25px;
 }
+ 
+/*Agregamos estilo al boton de modo oscuro*/
 .modo-noche{
   background-color: #333;
   color: white;

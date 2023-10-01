@@ -55,7 +55,7 @@ function checkLog() {
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
-
+          //Agregamos el boton de alternar en modo oscuro 
   const listas=document.getElementsByClassName("list-group");
   if(!window.location.href.includes("index")){
   if (JSON.parse(localStorage.getItem("modo"))) {
