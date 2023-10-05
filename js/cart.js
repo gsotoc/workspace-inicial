@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", async ()=>{
     let cart = await getJSONData(`https://japceibal.github.io/emercado-api/user_cart/25801.json`)
     let subtotal = cart.data.articles[0].count * cart.data.articles[0].unitCost;
-    let contentToAppend =       `<div  class="list-group-item">     
+    let contentToAppend =       `<div  class="list-group-item list-group">     
                                     <h2 class"center"> Mi carrito de compras </h2>    
 
                                     <table class="table table-striped">
