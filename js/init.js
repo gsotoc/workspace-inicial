@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }      
       listas[0].classList.toggle("list-group-dark");
       document.body.classList.toggle("modo-noche");
-    })
+    });
   }
     
 checkLog();
