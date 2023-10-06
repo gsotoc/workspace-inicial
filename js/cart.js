@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                                     <thead>
                                     <tr>
                                         <th scope="col"></th>
+                                        <th scope="col">Producto</th>
                                         <th scope="col">Costo</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Subtotal</th>
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                                     <tbody>
                                     <tr>
                                         <td><img src="${cart.data.articles[0].image}" width="100"></td>
+                                        <td>${cart.data.articles[0].name}</td>
                                         <td>${cart.data.articles[0].currency}  ${cart.data.articles[0].unitCost}</td>
                                         <td>${cart.data.articles[0].count}</td>
                                         <td>${cart.data.articles[0].currency} ${subtotal}</td>
@@ -26,4 +28,5 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                                 </div>`;
 
     document.getElementById("carrito").innerHTML = contentToAppend;
+    localStorage.setItem("cart", JSON.stringify(cart.data.articles[0]))
 });

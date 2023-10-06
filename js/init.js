@@ -74,6 +74,32 @@ document.addEventListener("DOMContentLoaded", function() {
       listas[0].classList.toggle("list-group-dark");
       document.body.classList.toggle("modo-noche");
     });
+
+    document.getElementById("btncart").addEventListener("click",()=>{
+      let shoppingList = JSON.parse(localStorage.getItem("cart"));
+      console.log(carrito.data)
+      let contentToAppend =       `<div  class="list-group-item list-group">        
+
+                                  <table class="table table-striped">
+                                  <thead>
+                                  <tr>
+                                      <th scope="col">Nombre</th>
+                                      <th scope="col">Cantidad</th>
+                                      <th scope="col">Costo</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                      <td>${shoppingList.name}</td>
+                                      <td>${shoppingList.count}</td>
+                                      <td>${shoppingList.currency} ${shoppingList.unitCost} </td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+                              </div>`;
+  
+  document.getElementById("carrito").innerHTML = contentToAppend;
+  });
   }
     
 checkLog();
