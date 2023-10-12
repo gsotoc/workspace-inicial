@@ -88,6 +88,37 @@
   <main>
     <div id="carrito" class="list-group"></div>
   </main>
+  <div>
+    <h2>Tipo de Envío:</h2>
+    <div>
+      <input type="radio" id="standard-shipping" name="shipping" value="standard">
+      <label for="standard-shipping">Premium 2 a 5 días (15%)</label>
+  
+      <input type="radio" id="express-shipping" name="shipping" value="express">
+      <label for="express-shipping">Express 5 a 8 días (7%)</label>
+  
+      <input type="radio" id="overnight-shipping" name="shipping" value="overnight">
+      <label for="overnight-shipping">Standard 12 a 15 días (5%)</label>
+    </div>
+  </div>
+  
+  <div>
+    <h2>Dirección de Envío:</h2>
+    <form style="display: grid; grid-template-columns: 1fr 1fr;">
+      <div>
+        <label for="street">Calle:</label>
+        <input type="text" id="street" placeholder="Nombre de la calle">
+      </div>
+      <div>
+        <label for="number">Número:</label>
+        <input type="text" id="number" placeholder="Número de la casa/apartamento">
+      </div>
+      <div>
+        <label for="corner">Esquina:</label>
+        <input type="text" id="corner" placeholder="Esquina">
+      </div>
+    </form>
+  </div>
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
