@@ -27,6 +27,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                                 </table>
                                 </div>`;
 
-    document.getElementById("carrito").innerHTML = contentToAppend;
+    document.getElementById("shoppingCart").innerHTML = contentToAppend;
     localStorage.setItem("cart", JSON.stringify(cart.data.articles[0]))
 });
