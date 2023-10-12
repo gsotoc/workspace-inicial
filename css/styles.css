@@ -244,3 +244,35 @@ span.font {
 .list-group-dark .list-group-item:hover {
   background-color: #444;
 }
+
+/*codigo de "Tipo de Envío" y "Dirección de Envío"*/
+
+.envio-seccion {
+  margin-top: 20px;
+}
+
+.seccion-titulo {
+ font-weight: bold;
+ color: #333;
+ margin-bottom: 10px;
+}
+
+.opciones-envio {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.form-direccion{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 10px;
+}
+.form-direccion label{
+  font-weight: bold;
+}
+
+.form-direccion input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}

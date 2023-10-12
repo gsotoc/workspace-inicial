@@ -87,10 +87,10 @@
   </nav>
   <main>
     <div id="carrito" class="list-group"></div>
-      <!-- código de "Tipo de Envío" y "Dirección de Envío"  -->
-    <div>
-      <h2>Tipo de Envío:</h2>
-      <div>
+      <!-- codigo de "Tipo de Envío" y "Dirección de Envío"  -->
+    <div class="envio-seccion">
+      <h2 class="seccion-titulo">Tipo de Envío:</h2>
+      <div class="opciones-envio">
         <input type="radio" id="premium" name="shipping" value="premium">
         <label for="premium-">Premium 2 a 5 días (15%)</label>
     
@@ -102,9 +102,9 @@
       </div>
     </div>
     
-    <div>
-      <h2>Dirección de Envío:</h2>
-      <form style="display: grid; grid-template-columns: 1fr 1fr;">
+    <div class="envio-seccion">
+      <h2 class="seccion-titulo">Dirección de Envío:</h2>
+      <form class="form-direccion">
         <div>
           <label for="calle">Calle:</label>
           <input type="text" id="street" placeholder="Nombre de la calle">
