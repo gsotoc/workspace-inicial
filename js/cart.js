@@ -20,13 +20,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
                                         <td><img src="${cart.data.articles[0].image}" width="100"></td>
                                         <td>${cart.data.articles[0].name}</td>
                                         <td>${cart.data.articles[0].currency}  ${cart.data.articles[0].unitCost}</td>
-                                        <td>${cart.data.articles[0].count}</td>
+                                        <td><input id="cantidad" type="number" value="1"></td>
                                         <td>${cart.data.articles[0].currency} ${subtotal}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 </div>`;
 
-    document.getElementById("carrito").innerHTML = contentToAppend;
+    document.getElementById("shoppingCart").innerHTML = contentToAppend;
     localStorage.setItem("cart", JSON.stringify(cart.data.articles[0]))
 });
