@@ -280,6 +280,7 @@ span.font {
 .form-direccion{
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
   margin-top: 10px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   
