@@ -244,3 +244,8 @@ span.font {
 .list-group-dark .list-group-item:hover {
   background-color: #444;
 }
+
+
+custom {
+  width: 50px;
+}
