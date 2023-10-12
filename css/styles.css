@@ -253,6 +253,7 @@ span.font {
 
 .seccion-titulo {
  font-weight: bold;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
  color: #333;
  margin-bottom: 10px;
 }
