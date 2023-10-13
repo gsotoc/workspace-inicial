@@ -31,7 +31,7 @@ async function CargarProducto() {
     }
   }else{
     const carritoUsuario={            
-      [productID]:{
+      [precarga.id]:{
         name:precarga.name,
         count:precarga.count,
         unitCost:precarga.unitCost,
