@@ -94,11 +94,16 @@ document.addEventListener("DOMContentLoaded",async ()=>{
         let carritoLocalStorage=JSON.parse(localStorage.getItem('carritos'));
         let carritoUsuario={};
         const cantidadSelec=document.getElementById('cantidad');
+        let cantidadTotal=0;
          carritoUsuario=carritoLocalStorage[user];
-         carritoUsuario[productID].count
+         if (carritoUsuario[productID]) {
+         cantidadTotal= parseInt(carritoUsuario[productID].count)+parseInt(cantidadSelec.value);
+         } else {
+          cantidadTotal=parseInt(cantidadSelec.value);
+         }
           carritoUsuario[productID]={
               name:product.name,
-              count:parseInt(carritoUsuario[productID].count)+parseInt(cantidadSelec.value),
+              count:cantidadTotal,
               unitCost:product.cost,
               currency:product.currency,
               image:product.images[0]          

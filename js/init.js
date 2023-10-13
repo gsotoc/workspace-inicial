@@ -93,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function() {
     for (const producto in carritoUsuario) {
       
         const prod = carritoUsuario[producto];
-        console.log(prod);
           contentToAppend +=`<tr>
                                     <td>${prod.name}</td>
                                     <td>${prod.count}</td>

@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     for (const producto in carritoUsuario) {
         const prod = carritoUsuario[producto];
         let subtotal = prod.count * prod.unitCost;
-        console.log(prod);
         htmlcontentToAppend += `<tr>
                                 <td><img src="${prod.image}" width="100"></td>
                                 <td>${prod.name}</td>
