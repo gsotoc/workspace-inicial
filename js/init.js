@@ -74,39 +74,41 @@ document.addEventListener("DOMContentLoaded", function() {
       listas[0].classList.toggle("list-group-dark");
       document.body.classList.toggle("modo-noche");
     });
-
-    document.getElementById("btncart").addEventListener("click",()=>{
-      let shoppingList = JSON.parse(localStorage.getItem("cart"));
-      console.log(carrito.data)
-      let contentToAppend =       `<div  class="list-group-item list-group">        
-
-                                  <table class="table table-striped">
-                                  <thead>
-                                  <tr>
-                                      <th scope="col">Nombre</th>
-                                      <th scope="col">Cantidad</th>
-                                      <th scope="col">Costo</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                  <tr>
-                                      <td>${shoppingList.name}</td>
-                                      <td>${shoppingList.count}</td>
-                                      <td>${shoppingList.currency} ${shoppingList.unitCost} </td>
-                                  </tr>
-                                  </tbody>
-                              </table>
-                              </div>`;
-  
-  document.getElementById("carrito").innerHTML = contentToAppend;
-  });
   }
-    
+  document.getElementById("btncart").addEventListener("click",()=>{
+    let contentToAppend =`<div  class="list-group-item list-group">        
+                                                  <table class="table table-striped">
+                                                  <thead>
+                                                  <tr>
+                                                      <th scope="col">Nombre</th>
+                                                      <th scope="col">Cantidad</th>
+                                                      <th scope="col">Costo</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>`
+    let user=sessionStorage.getItem("user")||localStorage.getItem('user');
+    let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
+    let carritoUsuario=carritoLocalStorage[user]
+    for (const producto in carritoUsuario) {
+      
+        const prod = carritoUsuario[producto];
+        console.log(prod);
+          contentToAppend +=`<tr>
+                                    <td>${prod.name}</td>
+                                    <td>${prod.count}</td>
+                                    <td>${prod.currency} ${prod.unitCost} </td>
+                                </tr>`;
+      }
+            contentToAppend +=`</tbody>
+                              </table>
+                              </div>`
+                              document.getElementById('carrito').innerHTML=contentToAppend
+});
 checkLog();
 //Funcionalidad del botón de cerrar sesion, limpia el usuario de sessionStorage y localStorage, a continuación lo redirigimos a la página de login
 logOutBtn.addEventListener("click",()=>{
-  sessionStorage.clear("user");
-  localStorage.clear("user");
+  sessionStorage.removeItem("user");
+  localStorage.removeItem("user");
   location.reload();
 })
 });
