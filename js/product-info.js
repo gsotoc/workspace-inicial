@@ -1,12 +1,13 @@
-const productContainer=document.getElementById("productContainer");
+
 let commentArray=[];
 function printProductInfo(product) {
-    const productImg=product.images;
+  const productImg=product.images;
     const productName=product.name;
     const productDescription=product.description;
     const productCost=product.cost;
     const productCurrency=product.currency;
     const productSoldCount=product.soldCount;
+    const productContainer=document.getElementById("productContainer");
     const htmlContentToAppend=`
     <div class="row">
     <div class="col-8">
@@ -51,7 +52,11 @@ function printProductInfo(product) {
         <div class="position-absolute top-0 end-0">
         <p class=""><span>${productSoldCount}</span> vendidos</p>
         </div>  
-        <button class="btn btn-primary position-absolute bottom-0 w-100">Comprar</button>    
+        <div class="position-absolute bottom-0 w-100 col-12 row">
+        <input class="col-2" type="number" value="1" id="cantidad" min="0">
+        <button id="btnComprar" class="btn btn-primary col-10">Comprar</button>
+        </div>
+            
     </div>
   </div>`
   productContainer.innerHTML=htmlContentToAppend;
@@ -82,7 +87,25 @@ document.addEventListener("DOMContentLoaded",async ()=>{
       }
     })
     //Imprimimos la información del producto
-    printProductInfo(product);
+    await printProductInfo(product);
+    const btnComprar=document.getElementById('btnComprar')
+    btnComprar.addEventListener('click',()=>{
+      const user=sessionStorage.getItem('user')||localStorage.getItem('user')
+        let carritoLocalStorage=JSON.parse(localStorage.getItem('carritos'));
+        let carritoUsuario={};
+        const cantidadSelec=document.getElementById('cantidad');
+         carritoUsuario=carritoLocalStorage[user];
+         carritoUsuario[productID].count
+          carritoUsuario[productID]={
+              name:product.name,
+              count:parseInt(carritoUsuario[productID].count)+parseInt(cantidadSelec.value),
+              unitCost:product.cost,
+              currency:product.currency,
+              image:product.images[0]          
+        } 
+      carritoLocalStorage[user]=carritoUsuario
+      localStorage.setItem('carritos',JSON.stringify(carritoLocalStorage))
+      });
     //Tomamos los comentarios de la API
     let comentarios=await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID+EXT_TYPE);
     comentarios=comentarios.data
