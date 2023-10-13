@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     let htmlcontentToAppend = `<div  class="list-group-item list-group">     
     <h2 class"center"> Mi carrito de compras </h2>    
-
+    
     <table class="table table-striped">
     <thead>
     <tr>

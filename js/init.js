@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
       document.body.classList.toggle("modo-noche");
     });
   }
+
   document.getElementById("btncart").addEventListener("click",()=>{
     let contentToAppend =`<div  class="list-group-item list-group">        
                                                   <table class="table table-striped">
@@ -104,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
                               </div>`
                               document.getElementById('carrito').innerHTML=contentToAppend
 });
+
 checkLog();
 //Funcionalidad del botón de cerrar sesion, limpia el usuario de sessionStorage y localStorage, a continuación lo redirigimos a la página de login
 logOutBtn.addEventListener("click",()=>{
