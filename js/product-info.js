@@ -10,7 +10,7 @@ function printProductInfo(product) {
     const productContainer=document.getElementById("productContainer");
     const htmlContentToAppend=`
     <div class="row">
-    <div class="col-8">
+    <div class="col-lg-8 col-md-12">
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -42,12 +42,12 @@ function printProductInfo(product) {
         </button>
       </div>
     </div>
-    <div class="col-4 position-relative">
+    <div class="col-lg-4 col-md-12 position-relative">
         <div class="row">
             <h2 class="col-9">${productName}</h2>
             <h4>$${productCost} <span>${productCurrency}</span></h4>
             <h5>Descripción del producto:</h5>
-            <p>${productDescription}</p>
+            <p class="pb-4">${productDescription}</p>
         </div>
         <div class="position-absolute top-0 end-0">
         <p class=""><span>${productSoldCount}</span> vendidos</p>
@@ -179,13 +179,15 @@ function printComment(Array) {
     let htmlContentToAppend=""
     Array.forEach(elem => {
         htmlContentToAppend += `
-                                <div class="row list-group-item comment">
-                                  <p>${elem.user} - ${elem.dateTime}-
+                                <div class="row list-group-item comment d-flex">
+                                  <p class="col-12 col-sm-6 m-0">${elem.user} - ${elem.dateTime}-</p>
+                                  <div class="col-12 col-sm-6 mt-0 mx-0 text-end mb-3">
                                   <span class="fa fa-star"></span>
                                   <span class="fa fa-star"></span>
                                   <span class="fa fa-star"></span>
                                   <span class="fa fa-star"></span>
-                                  <span class="fa fa-star"></span></p>
+                                  <span class="fa fa-star"></span>
+                                  </div>
                                   <p>${elem.description}</p>
                                 </div>`; 
     });

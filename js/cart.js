@@ -14,22 +14,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     </tr>
     </thead>
     <tbody>`
-    let user = sessionStorage.getItem("user") || localStorage.getItem('user');
+    const user = sessionStorage.getItem("user") || localStorage.getItem('user');
     let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
     let carritoUsuario = carritoLocalStorage[user]
     for (const producto in carritoUsuario) {
         const prod = carritoUsuario[producto];
         let subtotal = prod.count * prod.unitCost;
-        htmlcontentToAppend += `<tr>
+        htmlcontentToAppend += `<tr id="${producto}">
                                 <td><img src="${prod.image}" width="100"></td>
                                 <td>${prod.name}</td>
-                                <td><input type="number" value="${prod.count}"></input></td>
+                                <td><input type="number" value="${prod.count}" min="1"></input></td>
                                 <td>${prod.currency} ${prod.unitCost} </td>
-                                <td>${prod.currency} ${subtotal}</td>
+                                <td>${prod.currency} <span>${subtotal}</span></td>
                                 </tr>`;
     }
     htmlcontentToAppend += `</tbody>
 </table>
 </div>`
     document.getElementById('shoppingCart').innerHTML = htmlcontentToAppend
+    for (const producto in carritoUsuario) {
+        const prod = carritoUsuario[producto];
+        let prodHTML=document.getElementById(producto)
+        const inputProd=prodHTML.getElementsByTagName('input')[0]
+        inputProd.addEventListener('input',()=>{
+            prodHTML.getElementsByTagName('span')[0].innerHTML=parseInt(inputProd.value)*parseInt(prod.unitCost);
+            carritoUsuario[producto].count=parseInt(inputProd.value);
+            carritoLocalStorage[user]=carritoUsuario;
+            localStorage.setItem('carritos',JSON.stringify(carritoLocalStorage));
+        })
+    }
 });
