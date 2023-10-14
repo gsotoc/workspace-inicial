@@ -91,7 +91,7 @@ function printProducts(productos){
         `
             <li id="product.id" onclick="setProductID(${product.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-md-6 col-sm-12 col-lg-4">
                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
                     </div>
                     <div class="col">
