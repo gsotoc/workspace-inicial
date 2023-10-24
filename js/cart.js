@@ -84,15 +84,15 @@ document.addEventListener("DOMContentLoaded",() => {
             totalContentToAppend = `<h4 class="mt-3">Total</h4>
                                     <div class="row border d-flex">
                                         <h5 class="d-inline-flex pt-1">Subtotal</h5>
-                                        <span class="text-end">${subtotalProducto}</span>
+                                        <span class="text-end">USD ${subtotalProducto}</span>
                                     </div>
                                     <div id="costoEnvio" class="row border">
                                         <h5 class="d-inline-flex pt-1">Costo de envío</h5>
-                                        <span class="text-end">${costoEnvio}</span>
+                                        <span class="text-end">USD ${costoEnvio}</span>
                                     </div>
                                     <div class="row border">
                                         <h5 class="d-inline-flex pt-1">Total</h5>
-                                        <span class="text-end">${total}</span>
+                                        <span class="text-end">USD ${total}</span>
                                     </div>`;
             document.getElementById("total").innerHTML = totalContentToAppend;
         })  
