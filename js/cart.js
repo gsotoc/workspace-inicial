@@ -35,6 +35,14 @@ document.addEventListener("DOMContentLoaded",() => {
         subtotal += prodSubtotal;
         costoEnvio = subtotal*envio;
         let total = costoEnvio+subtotal;
+
+        let datosCarrito = {
+            subtotal: `${subtotal}`,
+            costoEnvio: `${costoEnvio}`,
+            total: `${total}`
+        }
+        localStorage.setItem('datosCarrito', JSON.stringify(datosCarrito));
+
         htmlTotalContentToAppend = `<h4 class="mt-3">Total</h4>
                                     <div class="row border d-flex">
                                         <h5 class="d-inline-flex pt-1">Subtotal</h5>
@@ -87,17 +95,9 @@ document.addEventListener("DOMContentLoaded",() => {
                                         <span class="text-end">${total}</span>
                                     </div>`;
             document.getElementById("total").innerHTML = totalContentToAppend;
-
-            let datosCarrito = {
-                subtotal: `${subtotalProducto}`,
-                costoEnvio: `${costoEnvio}`,
-                total: `${total}`
-            }
-            localStorage.setItem('datosCarrito', JSON.stringify(datosCarrito));
         })  
         
         let shippingCart = JSON.parse(localStorage.getItem('datosCarrito'));
-        console.log(shippingCart)
         let botonesRadio = document.querySelectorAll('[name="flexRadioDefault"]');
         botonesRadio.forEach(boton => boton.addEventListener("click",(e)=>{
         document.getElementById("costoEnvio").innerHTML = "";
