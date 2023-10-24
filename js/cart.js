@@ -104,6 +104,6 @@ document.addEventListener("DOMContentLoaded",() => {
         envio = e.target.value;
         shippingCost = Math.round(shippingCart.subtotal*envio);
         document.getElementById("costoEnvio").innerHTML = `<h5 class="d-inline-flex pt-1">Costo de envío</h5>
-                                                            <span class="class="text-end"">USD ${shippingCost}</span>`;        
+                                                            <span class="text-end">USD ${shippingCost}</span>`;        
     }));
 }});
