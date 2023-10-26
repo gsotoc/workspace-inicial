@@ -1,4 +1,6 @@
+
 document.addEventListener("DOMContentLoaded",() => {
+    const btnComprar = document.getElementById("btnComprar")
     let htmlcontentToAppend = `<div  class="list-group-item list-group">     
     <h2 class"center"> Mi carrito de compras </h2>    
     
@@ -106,4 +108,33 @@ document.addEventListener("DOMContentLoaded",() => {
         document.getElementById("costoEnvio").innerHTML = `<h5 class="d-inline-flex pt-1">Costo de envío</h5>
                                                             <span class="text-end">USD ${shippingCost}</span>`;        
     }));
-}});
+}
+        btnComprar.addEventListener("click", ()=>{
+            const alerta = document.getElementById("alertsucces")
+            if (alerta.classList.contains("was-validated")) {
+                alerta.innerHTML=`<div class="alert alert-success" role="alert">
+                Formulario completado con exito!
+              </div>`;
+            }
+        })
+});
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
