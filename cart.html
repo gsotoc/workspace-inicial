@@ -141,7 +141,7 @@
         </div><br>
         <hr>
         <div class="col-sm-12">
-          <h4 class="mb-3 mt-5">Forma de pago</h4>
+            <h4 class="mb-3 mt-5">Forma de pago</h4>
           <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal"
             data-bs-target="#modalTerminos">Seleccionar</button>
           <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
@@ -154,48 +154,49 @@
                 <h5 class="modal-title fs-5">Forma de pago</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4" required>
-                  <label class="form-check-label" for="flexRadioDefault1">
+              <div class="modal-body col-12 row">
+                <div class="d-flex text-left m-2">
+                  <input class="form-check-input ms-2" type="radio" name="flexRadioDefault2" id="flexRadioDefault4" required>
+                  <label class="form-check-label ms-2" for="flexRadioDefault1">
                     Tarjeta de crédito
                   </label>
                 </div>
-                <div>
-                  <label class="form-control" for="tarjetaNum">Número de tarjeta</label>
+                <hr>
+                <div class="col-6">
+                  <label for="tarjetaNum">Número de tarjeta</label>
                   <input class="form-control" type="text" id="tarjetaNum" aria-label="default input example" required>
                   <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
                   <div class="valid-feedback">Completado.</div>
                 </div>
-                <div>
-                  <label class="form-control" for="codigoSeg">Código de seg.</label>
+                <div class="col-4">
+                  <label for="codigoSeg">Código de seg.</label>
                   <input class="form-control" type="text" id="codigoSeg" aria-label="default input example" required>
                   <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
                   <div class="valid-feedback">Completado.</div>
                 </div>
-                <div>
-                  <label class="form-control" for="vencimiento">Vencimiento(MM/AA)</label>
+                <div class="col-6 mt-2">
+                  <label for="vencimiento">Vencimiento(MM/AA)</label>
                   <input class="form-control" type="text" id="vencimiento" aria-label="default input example" required>
                   <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
                   <div class="valid-feedback">Completado.</div>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault5" required>
+                <div class="d-flex text-left mt-4">
+                  <input class="form-check-input m-2" type="radio" name="flexRadioDefault2" id="flexRadioDefault5" required>
                   <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
                   <div class="valid-feedback">Completado.</div>
-                  <label class="form-check-label" for="flexRadioDefault2">
+                  <label class="form-check-label ms-2" for="flexRadioDefault2">
                     Transferencia bancaria
                   </label>
                 </div>
-                <div>
-                  <label class="form-control" for="numCuenta">Número de cuenta</label>
+                <hr>
+                <div class="col-6">
+                  <label for="numCuenta">Número de cuenta</label>
                   <input class="form-control" type="text" id="numCuenta" aria-label="default input example" required>
                   <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
                   <div class="valid-feedback">Completado.</div>
                 </div>
-                <hr>
               </div>
-              <div class="modal-footer">
+              <div class="text-center mb-3">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
               </div>
             </div>
