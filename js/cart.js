@@ -143,9 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 form.classList.add('was-validated')
             }, false)
         })
-})()
+})();
 
-}});
 function eliminarProducto(idproducto) {
     let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
     let carritoUsuario = carritoLocalStorage[user]
