@@ -89,7 +89,7 @@
     <div class="container">
       <!-- Agregamos tipo de envio y direccion de envio-->
       <form class="needs-validation" novalidate>
-        <div id="alertsucces"class="mt-5">
+        <div id="alertsucces" class="mt-5">
           <h4>Tipo de envío</h4>
           <div class="list-group d-flex mt-3 border-box">
             <div class="d-flex flex-row">
@@ -108,7 +108,8 @@
               <label class="form-check-label" for="flexRadioDefault3">Standart 10 a 12 días (5%)</label>
             </div>
           </div>
-        </div><br><hr>
+        </div><br>
+        <hr>
         <div class="mt-3">
           <h4 class="mb-3 mt-5">Dirección de envío</h4>
           <div class="input-group mt-2">
@@ -132,28 +133,30 @@
           </div>
           <div class="input-group mt-2">
             <span class="input-group-text" id="basic-addon1">Número de puerta</span>
-            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" pattern="[0-9]*" required>
+            <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+              pattern="[0-9]*" required>
             <div class="invalid-feedback">Debe completar este campo.</div>
             <div class="valid-feedback">Completado.</div>
           </div>
-        </div><br><hr>
+        </div><br>
+        <hr>
         <div class="col-sm-12">
           <h4 class="mb-3 mt-5">Forma de pago</h4>
-          <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalTerminos">Seleccionar</button>
-            <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
-            <div class="valid-feedback">Completado.</div>
+          <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal"
+            data-bs-target="#modalTerminos">Seleccionar</button>
+          <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
+          <div class="valid-feedback">Completado.</div>
         </div>
-        <div  class="modal fade" id="modalTerminos" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="modalTerminos" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title fs-5">Forma de pago</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-            <form>
               <div class="modal-body">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" required>
+                  <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4" required>
                   <label class="form-check-label" for="flexRadioDefault1">
                     Tarjeta de crédito
                   </label>
@@ -161,31 +164,40 @@
                 <div>
                   <label class="form-control" for="tarjetaNum">Número de tarjeta</label>
                   <input class="form-control" type="text" id="tarjetaNum" aria-label="default input example" required>
+                  <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
+                  <div class="valid-feedback">Completado.</div>
                 </div>
                 <div>
                   <label class="form-control" for="codigoSeg">Código de seg.</label>
                   <input class="form-control" type="text" id="codigoSeg" aria-label="default input example" required>
+                  <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
+                  <div class="valid-feedback">Completado.</div>
                 </div>
                 <div>
                   <label class="form-control" for="vencimiento">Vencimiento(MM/AA)</label>
                   <input class="form-control" type="text" id="vencimiento" aria-label="default input example" required>
+                  <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
+                  <div class="valid-feedback">Completado.</div>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" required>
+                  <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault5" required>
+                  <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
+                  <div class="valid-feedback">Completado.</div>
                   <label class="form-check-label" for="flexRadioDefault2">
                     Transferencia bancaria
                   </label>
                 </div>
-                  <div>
-                    <label class="form-control" for="numCuenta">Número de cuenta</label>
-                    <input class="form-control" type="text" id="numCuenta" aria-label="default input example" required>
-                  </div>
+                <div>
+                  <label class="form-control" for="numCuenta">Número de cuenta</label>
+                  <input class="form-control" type="text" id="numCuenta" aria-label="default input example" required>
+                  <div class="invalid-feedback">Debe seleccionar el metodo de pago.</div>
+                  <div class="valid-feedback">Completado.</div>
+                </div>
                 <hr>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
               </div>
-            </form>
             </div>
           </div>
         </div>
