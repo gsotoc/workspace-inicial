@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let carritoUsuario = carritoLocalStorage[user]
     let subtotal = 0;
     let costoEnvio = 0;
+    let total=0;
     //El valor de precio de envío por defaul es un 15%
     let envio = 0.15;
     //recorremos a través de los productos del carrito
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //Creo el contenido a ser ingresado en el total
         subtotal += prodSubtotal;
         costoEnvio = Math.round(subtotal * envio);
-        let total = costoEnvio + subtotal;
+        total = costoEnvio + subtotal;
 
         let datosCarrito = {
             subtotal: `${subtotal}`,
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     </div>
                                     <div class="row border">
                                         <h5 class="d-inline-flex pt-1">Total</h5>
-                                        <span class="text-end">USD ${total}</span>
+                                        <span id="costoTotal" class="text-end">USD ${total}</span>
                                     </div>`;
         document.getElementById("total").innerHTML = htmlTotalContentToAppend
     }
@@ -119,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     </div>
                                     <div class="row border">
                                         <h5 class="d-inline-flex pt-1">Total</h5>
-                                        <span class="text-end">USD ${total}</span>
+                                        <span id="costoTotal" class="text-end">USD ${total}</span>
                                     </div>`;
             document.getElementById("total").innerHTML = totalContentToAppend;
         })
@@ -131,8 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("costoEnvio").innerHTML = "";
             envio = e.target.value;
             shippingCost = Math.round(shippingCart.subtotal * envio);
+            total=subtotal+shippingCost
             document.getElementById("costoEnvio").innerHTML = `<h5 class="d-inline-flex pt-1">Costo de envío</h5>
                                                             <span class="text-end">USD ${shippingCost}</span>`;
+            document.getElementById("costoTotal").innerHTML=`USD ${total}`
         }));
     }
 });
