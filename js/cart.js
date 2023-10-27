@@ -14,21 +14,27 @@ document.addEventListener("DOMContentLoaded", () => {
     </tr>
     </thead>
     <tbody>`
+
+    // obtenemos el carrito y el usuario desde local storage
     user = sessionStorage.getItem("user") || localStorage.getItem('user');
     let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
     let carritoUsuario = carritoLocalStorage[user]
     let subtotal = 0;
     let costoEnvio = 0;
+    //El valor de precio de envío por defaul es un 15%
     let envio = 0.15;
+    //recorremos a través de los productos del carrito
     for (const producto in carritoUsuario) {
         const prod = carritoUsuario[producto];
-        //si la moneda es en pesos uruguayos divido el unitCost por el valor del dolar obtenido en la API 
+        //si la moneda es en pesos uruguayos redefino unitCost 
+        //divido el unitCost por el valor del dolar obtenido en la API 
         let valorDolar = localStorage.getItem("currency");
         let precioProductoUSD=prod.unitCost
         if (prod.currency==="UYU"){
             precioProductoUSD = Math.round(prod.unitCost/valorDolar);
         };
         let prodSubtotal = prod.count * precioProductoUSD;
+        //creamos el contenido a ser agregodo en la 
         htmlcontentToAppend += `<tr id="${producto}">
                                 <td><img src="${prod.image}" width="100"></td>
                                 <td>${prod.name}</td>
@@ -40,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
                               </svg></button></td>
                                 </tr>`;
+        document.getElementById('shoppingCart').innerHTML = htmlcontentToAppend;
 
         //Creo el contenido a ser ingresado en el total
         subtotal += prodSubtotal;
@@ -68,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     </div>`;
         document.getElementById("total").innerHTML = htmlTotalContentToAppend
     }
-    document.getElementById('shoppingCart').innerHTML = htmlcontentToAppend;
+    
 
 
     for (const producto in carritoUsuario) {
