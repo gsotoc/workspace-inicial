@@ -139,16 +139,6 @@ function eliminarProducto(idproducto) {
     location.reload();
 }
 
-//hago la request a la API para obtener el valor del dolar
-const urlAPI = `https://openexchangerates.org/api/latest.json?app_id=a0ac012ca5324376894ccbb627cc51a5`;
-(async () => {
-    try {
-      const jsonData = await getJSONData(urlAPI);
-      localStorage.setItem("currency", JSON.stringify(jsonData.data.rates.UYU));
-    } catch (error) {
-      console.error(error);
-    }
-  })();
 const form = document.getElementsByTagName("form")[0];
 let botonesRadio2 = document.querySelectorAll('[name="flexRadioDefault2"]');
 let metodoPagoSeleccionado=""
