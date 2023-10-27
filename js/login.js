@@ -66,4 +66,26 @@ document.addEventListener("DOMContentLoaded", function(){
       
     });
 
+    // URL de la API para obtener el valor del dolar
+    const urlAPI = `https://openexchangerates.org/api/latest.json?app_id=a0ac012ca5324376894ccbb627cc51a5`;
+
+    // Realizamos la petición
+    fetch(urlAPI)
+    .then(response => {
+        if (!response.ok) {
+          throw new Error('No se pudo obtener la información del dolar');
+        }
+        return response.json();
+    })
+    .then(jsonData => {
+        // Guardar el valor del dolar en el localStorage
+        console.log(jsonData)
+        localStorage.setItem("currency", JSON.stringify(jsonData.rates.UYU));
+    })
+    .catch(error => {
+        console.error('Error al obtener el valor del dolar:', error);
+    });
 });
+
+
+
