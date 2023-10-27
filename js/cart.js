@@ -93,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
             carritoUsuario[producto].count = parseInt(inputProd.value);
             carritoLocalStorage[user] = carritoUsuario;
             localStorage.setItem('carritos', JSON.stringify(carritoLocalStorage));
-
             // Funcionalidad del total
             let carritoTotalLocalStorage = JSON.parse(localStorage.getItem('carritos'));
             let carritoTotal = carritoTotalLocalStorage[user];
@@ -106,9 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     precioProductoUSD = Math.round(totalProd.unitCost/valorDolar);
                 };
                 subtotalProducto += precioProductoUSD * totalProd.count;
-                costoEnvio = Math.round(subtotalProducto * envio);
-                total = subtotalProducto + costoEnvio;
+                
             }
+            costoEnvio = Math.round(subtotalProducto * envio);
+            total = subtotalProducto + costoEnvio;
             totalContentToAppend = `<h4 class="mt-3">Total</h4>
                                     <div class="row border d-flex">
                                         <h5 class="d-inline-flex pt-1">Subtotal</h5>
@@ -123,21 +123,29 @@ document.addEventListener("DOMContentLoaded", () => {
                                         <span id="costoTotal" class="text-end">USD ${total}</span>
                                     </div>`;
             document.getElementById("total").innerHTML = totalContentToAppend;
+            let datosCarrito = {
+                subtotal: `${subtotalProducto}`,
+                costoEnvio: `${costoEnvio}`,
+                total: `${total}`
+            }
+            localStorage.setItem('datosCarrito', JSON.stringify(datosCarrito));
         })
 
-        let shippingCart = JSON.parse(localStorage.getItem('datosCarrito'));
-        let botonesRadio = document.querySelectorAll('[name="flexRadioDefault"]');
-
-        botonesRadio.forEach(boton => boton.addEventListener("click", (e) => {
-            document.getElementById("costoEnvio").innerHTML = "";
-            envio = e.target.value;
-            shippingCost = Math.round(shippingCart.subtotal * envio);
-            total=subtotal+shippingCost
-            document.getElementById("costoEnvio").innerHTML = `<h5 class="d-inline-flex pt-1">Costo de envío</h5>
-                                                            <span class="text-end">USD ${shippingCost}</span>`;
-            document.getElementById("costoTotal").innerHTML=`USD ${total}`
-        }));
+        
     }
+
+    let botonesRadio = document.querySelectorAll('[name="flexRadioDefault"]');
+    botonesRadio.forEach(boton => boton.addEventListener("click", (e) => {
+        let shippingCart = JSON.parse(localStorage.getItem('datosCarrito'));
+        document.getElementById("costoEnvio").innerHTML = "";
+        envio = e.target.value;
+        shippingCost = Math.round(shippingCart.subtotal * envio);
+        document.getElementById("costoEnvio").innerHTML = `<h5 class="d-inline-flex pt-1">Costo de envío</h5>
+                                                        <span class="text-end">USD ${shippingCost}</span>`;
+        document.getElementById("costoTotal").innerHTML=`USD ${total}`
+        shippingCart.costoEnvio=JSON.stringify(shippingCost)
+        localStorage.setItem('datosCarrito', JSON.stringify(shippingCart));
+    }));
 });
 
 function eliminarProducto(idproducto) {
