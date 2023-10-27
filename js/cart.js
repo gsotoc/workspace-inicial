@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     const btnComprar = document.getElementById("btnComprar")
     let htmlcontentToAppend = `<div  class="list-group-item list-group">     
@@ -22,16 +21,21 @@ document.addEventListener("DOMContentLoaded", () => {
     let subtotal = 0;
     let costoEnvio = 0;
     let envio = 0.15;
-
     for (const producto in carritoUsuario) {
         const prod = carritoUsuario[producto];
+        //si la moneda es en pesos uruguayos divido el unitCost por el valor del dolar obtenido en la API 
+        let valorDolar = localStorage.getItem("currency");
+        console.log(prod)
+        if (prod.currency==="UYU"){
+            prod.unitCost = Math.round(prod.unitCost/valorDolar);
+        };
         let prodSubtotal = prod.count * prod.unitCost;
         htmlcontentToAppend += `<tr id="${producto}">
                                 <td><img src="${prod.image}" width="100"></td>
                                 <td>${prod.name}</td>
                                 <td><input type="number" value="${prod.count}" min="1"></input></td>
-                                <td>${prod.currency} ${prod.unitCost} </td>
-                                <td>${prod.currency} <span>${prodSubtotal}</span></td>
+                                <td> USD ${prod.unitCost} </td>
+                                <td> USD <span>${prodSubtotal}</span></td>
                                 <td><button onclick="eliminarProducto(${producto})" type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
@@ -83,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let carritoTotal = carritoTotalLocalStorage[user];
             subtotalProducto = 0;
             for (const producto in carritoTotal) {
-                const totalProd = carritoTotal[producto];
+                const totalProd = carritoTotal[producto]; 
                 subtotalProducto += totalProd.unitCost * totalProd.count;
                 costoEnvio = Math.round(subtotalProducto * envio);
                 total = subtotalProducto + costoEnvio;
@@ -116,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }));
     }
 });
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
     'use strict'
@@ -154,3 +159,13 @@ function eliminarProducto(idproducto) {
     location.reload();
 }
 
+//hago la request a la API para obtener el valor del dolar
+const urlAPI = `https://openexchangerates.org/api/latest.json?app_id=a0ac012ca5324376894ccbb627cc51a5`;
+(async () => {
+    try {
+      const jsonData = await getJSONData(urlAPI);
+      localStorage.setItem("currency", JSON.stringify(jsonData.data.rates.UYU));
+    } catch (error) {
+      console.error(error);
+    }
+  })();
