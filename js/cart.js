@@ -25,16 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const prod = carritoUsuario[producto];
         //si la moneda es en pesos uruguayos divido el unitCost por el valor del dolar obtenido en la API 
         let valorDolar = localStorage.getItem("currency");
-        console.log(prod)
+        let precioProductoUSD=prod.unitCost
         if (prod.currency==="UYU"){
-            prod.unitCost = Math.round(prod.unitCost/valorDolar);
+            precioProductoUSD = Math.round(prod.unitCost/valorDolar);
         };
-        let prodSubtotal = prod.count * prod.unitCost;
+        let prodSubtotal = prod.count * precioProductoUSD;
         htmlcontentToAppend += `<tr id="${producto}">
                                 <td><img src="${prod.image}" width="100"></td>
                                 <td>${prod.name}</td>
                                 <td><input type="number" value="${prod.count}" min="1"></input></td>
-                                <td> USD ${prod.unitCost} </td>
+                                <td> USD ${precioProductoUSD} </td>
                                 <td> USD <span>${prodSubtotal}</span></td>
                                 <td><button onclick="eliminarProducto(${producto})" type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //Creo el contenido a ser ingresado en el total
         subtotal += prodSubtotal;
-        costoEnvio = subtotal * envio;
+        costoEnvio = Math.round(subtotal * envio);
         let total = costoEnvio + subtotal;
 
         let datosCarrito = {
@@ -74,10 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const producto in carritoUsuario) {
         const prod = carritoUsuario[producto];
+        let valorDolar = localStorage.getItem("currency");
+        let precioProductoUSD=prod.unitCost
+        if (prod.currency==="UYU"){
+            precioProductoUSD = Math.round(prod.unitCost/valorDolar);
+        };
         let prodHTML = document.getElementById(producto)
         const inputProd = prodHTML.getElementsByTagName('input')[0]
         inputProd.addEventListener('input', () => {
-            prodHTML.getElementsByTagName('span')[0].innerHTML = parseInt(inputProd.value) * parseInt(prod.unitCost);
+            prodHTML.getElementsByTagName('span')[0].innerHTML = parseInt(inputProd.value) * parseInt(precioProductoUSD);
             carritoUsuario[producto].count = parseInt(inputProd.value);
             carritoLocalStorage[user] = carritoUsuario;
             localStorage.setItem('carritos', JSON.stringify(carritoLocalStorage));
@@ -88,7 +93,12 @@ document.addEventListener("DOMContentLoaded", () => {
             subtotalProducto = 0;
             for (const producto in carritoTotal) {
                 const totalProd = carritoTotal[producto]; 
-                subtotalProducto += totalProd.unitCost * totalProd.count;
+                let valorDolar = localStorage.getItem("currency");
+                let precioProductoUSD=totalProd.unitCost
+                if (totalProd.currency==="UYU"){
+                    precioProductoUSD = Math.round(totalProd.unitCost/valorDolar);
+                };
+                subtotalProducto += precioProductoUSD * totalProd.count;
                 costoEnvio = Math.round(subtotalProducto * envio);
                 total = subtotalProducto + costoEnvio;
             }
@@ -122,33 +132,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    'use strict'
+// (function () {
+//     'use strict'
 
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-    const alerta = document.getElementById("alertsucces")
+//     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+//     var forms = document.querySelectorAll('.needs-validation')
+//     const alerta = document.getElementById("alertsucces")
 
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                } else {
-                    alerta.innerHTML = `<div class="alert alert-success" role="alert">
-                             Compra completada con exito!
-                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                           </div>`;
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
+//     // Loop over them and prevent submission
+//     Array.prototype.slice.call(forms)
+//         .forEach(function (form) {
+//             form.addEventListener('submit', function (event) {
+//                 if (!form.checkValidity()) {
+//                     event.preventDefault()
+//                     event.stopPropagation()
+//                 } else {
+//                     alerta.innerHTML = `<div class="alert alert-success" role="alert">
+//                              Compra completada con exito!
+//                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+//                            </div>`;
+//                     event.preventDefault()
+//                     event.stopPropagation()
+//                 }
 
-                form.classList.add('was-validated')
-            }, false)
-        })
-})();
+//                 form.classList.add('was-validated')
+//             }, false)
+//         })
+// })();
 
 function eliminarProducto(idproducto) {
     let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
@@ -159,3 +169,197 @@ function eliminarProducto(idproducto) {
     location.reload();
 }
 
+const form = document.getElementsByTagName("form")[0];
+let botonesRadio2 = document.querySelectorAll('[name="flexRadioDefault2"]');
+let metodoPagoSeleccionado=""
+let metodoPagoValidado=false
+const tarjetaNum = document.getElementById("tarjetaNum");
+const codigoSeg = document.getElementById("codigoSeg");
+const vencimiento = document.getElementById("vencimiento");
+const numCuenta = document.getElementById("numCuenta");
+botonesRadio2.forEach(boton => boton.addEventListener("click", (e) => {
+    metodoPagoSeleccionado=e.target.value
+    switch (metodoPagoSeleccionado) {
+        case "Tarjeta":
+            numCuenta.disabled=true;
+            numCuenta.required=false;
+
+            tarjetaNum.required=true;
+            codigoSeg.required=true;
+            vencimiento.required=true;
+            tarjetaNum.disabled=false;
+            codigoSeg.disabled=false;
+            vencimiento.disabled=false;
+            break;
+        case "Transferencia":
+            tarjetaNum.disabled=true;
+            codigoSeg.disabled=true;
+            vencimiento.disabled=true;
+            tarjetaNum.required=false;
+            codigoSeg.required=false;
+            vencimiento.required=false;
+
+            numCuenta.required=true;
+            numCuenta.disabled=false;
+            break;
+        default:
+            
+            break;
+    }
+}));
+form.addEventListener('submit', function (event) {
+    const nombre = document.getElementById("nombre");
+    const apellido = document.getElementById("apellido");
+    const ciudad = document.getElementById("ciudad");
+    const direccion = document.getElementById("direccion");
+    const numeroPuerta = document.getElementById("numeroPuerta");
+    const selectMetodoPago=document.getElementById("selectMetodoPago");
+    event.preventDefault();
+    validar(nombre);
+    validar(apellido);
+    validar(ciudad);
+    validar(direccion);
+    validar(numeroPuerta);
+    validarRadio("flexRadioDefault")
+    switch (metodoPagoSeleccionado) {
+        case "Tarjeta":
+            validar(tarjetaNum);
+            validar(codigoSeg);
+            validar(vencimiento);
+            break;
+        case "Transferencia":
+            validar(numCuenta);
+            break;
+        default:
+            break;
+    }
+
+    
+
+
+    nombre.addEventListener("input", function () {
+        validar(nombre)
+    });
+    apellido.addEventListener("input", function () {
+        validar(apellido)
+    });
+    
+    ciudad.addEventListener("input", function () {
+        validar(ciudad)
+    });
+    
+    direccion.addEventListener("input", function () {
+        validar(direccion)
+    });
+
+    numeroPuerta.addEventListener("input", function () {
+        var numPuertaPatron = /^[0-9]{1,}$/;
+        if (numPuertaPatron.test(numeroPuerta.value)) {
+            numeroPuerta.classList.add("is-valid");
+            numeroPuerta.classList.remove("is-invalid");
+        } else {
+            numeroPuerta.classList.add("is-invalid");
+            numeroPuerta.classList.remove("is-valid");
+        }
+    });
+
+    tarjetaNum.addEventListener("input", function () {
+        validar(tarjetaNum)
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+    });
+
+    vencimiento.addEventListener("input", function () {
+        validar(vencimiento)
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+    });
+
+    codigoSeg.addEventListener("input", function () {
+        validar(codigoSeg)
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+    });
+
+    numCuenta.addEventListener("input", function () {
+        validar(numCuenta)
+        if (numCuenta.value!="") {
+            selectMetodoPago.classList.remove("is-invalid");
+            selectMetodoPago.classList.add("is-valid");
+        }else{
+            selectMetodoPago.classList.add("is-invalid"); 
+            selectMetodoPago.classList.remove("is-valid");
+        }
+    });
+    switch (metodoPagoSeleccionado) {
+        case "Tarjeta":
+            validar(tarjetaNum);
+            validar(codigoSeg);
+            validar(vencimiento);
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+            break;
+        case "Transferencia":
+            validar(numCuenta);
+            if (numCuenta.value!="") {
+                selectMetodoPago.classList.remove("is-invalid");
+                selectMetodoPago.classList.add("is-valid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+            break;
+        default:
+            break;
+    }
+    if (form.checkValidity()) {
+                            alerta.innerHTML = `<div class="alert alert-success" role="alert">
+                             Compra completada con exito!
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>`;
+    }
+    });
+    
+function validar(elemento) {
+    if (elemento.value !== "") {
+        elemento.classList.add("is-valid");
+        elemento.classList.remove("is-invalid");
+    } else {
+        elemento.classList.add("is-invalid");
+        elemento.classList.remove("is-valid");
+    }
+}
+function validarRadio(nombreRadio) {
+    let radios=document.querySelectorAll(`input[name="${nombreRadio}"]`);
+    if (document.querySelector(`input[name="${nombreRadio}"]:checked`)  ) {
+        radios.forEach(radio => {
+            radio.classList.add('is-valid')
+            radio.classList.remove('is-invalid')
+        });
+    } else {
+        radios.forEach(radio => {
+            radio.classList.add('is-invalid')
+            radio.classList.remove('is-valid')
+        });
+    }
+}
