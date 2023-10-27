@@ -25,16 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const prod = carritoUsuario[producto];
         //si la moneda es en pesos uruguayos divido el unitCost por el valor del dolar obtenido en la API 
         let valorDolar = localStorage.getItem("currency");
-        console.log(prod)
+        let precioProductoUSD=prod.unitCost
         if (prod.currency==="UYU"){
-            prod.unitCost = Math.round(prod.unitCost/valorDolar);
+            precioProductoUSD = Math.round(prod.unitCost/valorDolar);
         };
-        let prodSubtotal = prod.count * prod.unitCost;
+        let prodSubtotal = prod.count * precioProductoUSD;
         htmlcontentToAppend += `<tr id="${producto}">
                                 <td><img src="${prod.image}" width="100"></td>
                                 <td>${prod.name}</td>
                                 <td><input type="number" value="${prod.count}" min="1"></input></td>
-                                <td> USD ${prod.unitCost} </td>
+                                <td> USD ${precioProductoUSD} </td>
                                 <td> USD <span>${prodSubtotal}</span></td>
                                 <td><button onclick="eliminarProducto(${producto})" type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //Creo el contenido a ser ingresado en el total
         subtotal += prodSubtotal;
-        costoEnvio = subtotal * envio;
+        costoEnvio = Math.round(subtotal * envio);
         let total = costoEnvio + subtotal;
 
         let datosCarrito = {
@@ -74,10 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const producto in carritoUsuario) {
         const prod = carritoUsuario[producto];
+        let valorDolar = localStorage.getItem("currency");
+        let precioProductoUSD=prod.unitCost
+        if (prod.currency==="UYU"){
+            precioProductoUSD = Math.round(prod.unitCost/valorDolar);
+        };
         let prodHTML = document.getElementById(producto)
         const inputProd = prodHTML.getElementsByTagName('input')[0]
         inputProd.addEventListener('input', () => {
-            prodHTML.getElementsByTagName('span')[0].innerHTML = parseInt(inputProd.value) * parseInt(prod.unitCost);
+            prodHTML.getElementsByTagName('span')[0].innerHTML = parseInt(inputProd.value) * parseInt(precioProductoUSD);
             carritoUsuario[producto].count = parseInt(inputProd.value);
             carritoLocalStorage[user] = carritoUsuario;
             localStorage.setItem('carritos', JSON.stringify(carritoLocalStorage));
@@ -88,7 +93,12 @@ document.addEventListener("DOMContentLoaded", () => {
             subtotalProducto = 0;
             for (const producto in carritoTotal) {
                 const totalProd = carritoTotal[producto]; 
-                subtotalProducto += totalProd.unitCost * totalProd.count;
+                let valorDolar = localStorage.getItem("currency");
+                let precioProductoUSD=totalProd.unitCost
+                if (totalProd.currency==="UYU"){
+                    precioProductoUSD = Math.round(totalProd.unitCost/valorDolar);
+                };
+                subtotalProducto += precioProductoUSD * totalProd.count;
                 costoEnvio = Math.round(subtotalProducto * envio);
                 total = subtotalProducto + costoEnvio;
             }
