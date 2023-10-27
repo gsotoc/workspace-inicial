@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnComprar = document.getElementById("btnComprar")
     let htmlcontentToAppend = `<div  class="list-group-item list-group">     
     <h2 class"center"> Mi carrito de compras </h2>    
     
@@ -131,35 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-// (function () {
-//     'use strict'
-
-//     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//     var forms = document.querySelectorAll('.needs-validation')
-//     const alerta = document.getElementById("alertsucces")
-
-//     // Loop over them and prevent submission
-//     Array.prototype.slice.call(forms)
-//         .forEach(function (form) {
-//             form.addEventListener('submit', function (event) {
-//                 if (!form.checkValidity()) {
-//                     event.preventDefault()
-//                     event.stopPropagation()
-//                 } else {
-//                     alerta.innerHTML = `<div class="alert alert-success" role="alert">
-//                              Compra completada con exito!
-//                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-//                            </div>`;
-//                     event.preventDefault()
-//                     event.stopPropagation()
-//                 }
-
-//                 form.classList.add('was-validated')
-//             }, false)
-//         })
-// })();
-
 function eliminarProducto(idproducto) {
     let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
     let carritoUsuario = carritoLocalStorage[user]
@@ -187,9 +157,12 @@ const tarjetaNum = document.getElementById("tarjetaNum");
 const codigoSeg = document.getElementById("codigoSeg");
 const vencimiento = document.getElementById("vencimiento");
 const numCuenta = document.getElementById("numCuenta");
+// Agregar un evento click a cada botón de radio en la lista botonesRadio2
 botonesRadio2.forEach(boton => boton.addEventListener("click", (e) => {
+// Al hacer clic en un botón de radio, actualiza el método de pago seleccionado
     metodoPagoSeleccionado=e.target.value
     switch (metodoPagoSeleccionado) {
+     // Si se selecciona "Tarjeta", habilitar campos relacionados con tarjeta y deshabilitar los campos de cuenta    
         case "Tarjeta":
             numCuenta.disabled=true;
             numCuenta.required=false;
@@ -201,6 +174,7 @@ botonesRadio2.forEach(boton => boton.addEventListener("click", (e) => {
             codigoSeg.disabled=false;
             vencimiento.disabled=false;
             break;
+     // Si se selecciona "Transferencia", habilitar campos relacionados con cuenta y deshabilitar los campos de tarjeta
         case "Transferencia":
             tarjetaNum.disabled=true;
             codigoSeg.disabled=true;
