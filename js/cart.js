@@ -117,33 +117,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    'use strict'
+// (function () {
+//     'use strict'
 
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-    const alerta = document.getElementById("alertsucces")
+//     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+//     var forms = document.querySelectorAll('.needs-validation')
+//     const alerta = document.getElementById("alertsucces")
 
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                } else {
-                    alerta.innerHTML = `<div class="alert alert-success" role="alert">
-                             Compra completada con exito!
-                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                           </div>`;
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
+//     // Loop over them and prevent submission
+//     Array.prototype.slice.call(forms)
+//         .forEach(function (form) {
+//             form.addEventListener('submit', function (event) {
+//                 if (!form.checkValidity()) {
+//                     event.preventDefault()
+//                     event.stopPropagation()
+//                 } else {
+//                     alerta.innerHTML = `<div class="alert alert-success" role="alert">
+//                              Compra completada con exito!
+//                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+//                            </div>`;
+//                     event.preventDefault()
+//                     event.stopPropagation()
+//                 }
 
-                form.classList.add('was-validated')
-            }, false)
-        })
-})();
+//                 form.classList.add('was-validated')
+//             }, false)
+//         })
+// })();
 
 function eliminarProducto(idproducto) {
     let carritoLocalStorage = JSON.parse(localStorage.getItem('carritos'));
@@ -154,3 +154,198 @@ function eliminarProducto(idproducto) {
     location.reload();
 }
 
+
+const form = document.getElementsByTagName("form")[0];
+let botonesRadio2 = document.querySelectorAll('[name="flexRadioDefault2"]');
+let metodoPagoSeleccionado=""
+let metodoPagoValidado=false
+const tarjetaNum = document.getElementById("tarjetaNum");
+const codigoSeg = document.getElementById("codigoSeg");
+const vencimiento = document.getElementById("vencimiento");
+const numCuenta = document.getElementById("numCuenta");
+botonesRadio2.forEach(boton => boton.addEventListener("click", (e) => {
+    metodoPagoSeleccionado=e.target.value
+    switch (metodoPagoSeleccionado) {
+        case "Tarjeta":
+            numCuenta.disabled=true;
+            numCuenta.required=false;
+
+            tarjetaNum.required=true;
+            codigoSeg.required=true;
+            vencimiento.required=true;
+            tarjetaNum.disabled=false;
+            codigoSeg.disabled=false;
+            vencimiento.disabled=false;
+            break;
+        case "Transferencia":
+            tarjetaNum.disabled=true;
+            codigoSeg.disabled=true;
+            vencimiento.disabled=true;
+            tarjetaNum.required=false;
+            codigoSeg.required=false;
+            vencimiento.required=false;
+
+            numCuenta.required=true;
+            numCuenta.disabled=false;
+            break;
+        default:
+            
+            break;
+    }
+}));
+form.addEventListener('submit', function (event) {
+    const nombre = document.getElementById("nombre");
+    const apellido = document.getElementById("apellido");
+    const ciudad = document.getElementById("ciudad");
+    const direccion = document.getElementById("direccion");
+    const numeroPuerta = document.getElementById("numeroPuerta");
+    const selectMetodoPago=document.getElementById("selectMetodoPago");
+    event.preventDefault();
+    validar(nombre);
+    validar(apellido);
+    validar(ciudad);
+    validar(direccion);
+    validar(numeroPuerta);
+    validarRadio("flexRadioDefault")
+    switch (metodoPagoSeleccionado) {
+        case "Tarjeta":
+            validar(tarjetaNum);
+            validar(codigoSeg);
+            validar(vencimiento);
+            break;
+        case "Transferencia":
+            validar(numCuenta);
+            break;
+        default:
+            break;
+    }
+
+    
+
+
+    nombre.addEventListener("input", function () {
+        validar(nombre)
+    });
+    apellido.addEventListener("input", function () {
+        validar(apellido)
+    });
+    
+    ciudad.addEventListener("input", function () {
+        validar(ciudad)
+    });
+    
+    direccion.addEventListener("input", function () {
+        validar(direccion)
+    });
+
+    numeroPuerta.addEventListener("input", function () {
+        var numPuertaPatron = /^[0-9]{1,}$/;
+        if (numPuertaPatron.test(numeroPuerta.value)) {
+            numeroPuerta.classList.add("is-valid");
+            numeroPuerta.classList.remove("is-invalid");
+        } else {
+            numeroPuerta.classList.add("is-invalid");
+            numeroPuerta.classList.remove("is-valid");
+        }
+    });
+
+    tarjetaNum.addEventListener("input", function () {
+        validar(tarjetaNum)
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+    });
+
+    vencimiento.addEventListener("input", function () {
+        validar(vencimiento)
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+    });
+
+    codigoSeg.addEventListener("input", function () {
+        validar(codigoSeg)
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+    });
+
+    numCuenta.addEventListener("input", function () {
+        validar(numCuenta)
+        if (numCuenta.value!="") {
+            selectMetodoPago.classList.remove("is-invalid");
+            selectMetodoPago.classList.add("is-valid");
+        }else{
+            selectMetodoPago.classList.add("is-invalid"); 
+            selectMetodoPago.classList.remove("is-valid");
+        }
+    });
+    switch (metodoPagoSeleccionado) {
+        case "Tarjeta":
+            validar(tarjetaNum);
+            validar(codigoSeg);
+            validar(vencimiento);
+            if (tarjetaNum.value!=""&&codigoSeg.value!=""&&vencimiento.value!="") {
+                selectMetodoPago.classList.add("is-valid");
+                selectMetodoPago.classList.remove("is-invalid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+            break;
+        case "Transferencia":
+            validar(numCuenta);
+            if (numCuenta.value!="") {
+                selectMetodoPago.classList.remove("is-invalid");
+                selectMetodoPago.classList.add("is-valid");
+            }else{
+                selectMetodoPago.classList.add("is-invalid"); 
+                selectMetodoPago.classList.remove("is-valid");
+            }
+            break;
+        default:
+            break;
+    }
+    if (form.checkValidity()) {
+                            alerta.innerHTML = `<div class="alert alert-success" role="alert">
+                             Compra completada con exito!
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>`;
+    }
+    });
+    
+function validar(elemento) {
+    if (elemento.value !== "") {
+        elemento.classList.add("is-valid");
+        elemento.classList.remove("is-invalid");
+    } else {
+        elemento.classList.add("is-invalid");
+        elemento.classList.remove("is-valid");
+    }
+}
+function validarRadio(nombreRadio) {
+    let radios=document.querySelectorAll(`input[name="${nombreRadio}"]`);
+    if (document.querySelector(`input[name="${nombreRadio}"]:checked`)  ) {
+        radios.forEach(radio => {
+            radio.classList.add('is-valid')
+            radio.classList.remove('is-invalid')
+        });
+    } else {
+        radios.forEach(radio => {
+            radio.classList.add('is-invalid')
+            radio.classList.remove('is-valid')
+        });
+    }
+}
