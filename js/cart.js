@@ -314,6 +314,7 @@ form.addEventListener('submit', function (event) {
             break;
     }
     if (form.checkValidity()) {
+        const alerta = document.getElementById("alertsucces")
                             alerta.innerHTML = `<div class="alert alert-success" role="alert">
                              Compra completada con exito!
                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
