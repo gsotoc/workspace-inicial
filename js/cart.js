@@ -142,8 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
         shippingCost = Math.round(shippingCart.subtotal * envio);
         document.getElementById("costoEnvio").innerHTML = `<h5 class="d-inline-flex pt-1">Costo de envío</h5>
                                                         <span class="text-end">USD ${shippingCost}</span>`;
+        total=parseInt(shippingCost)+parseInt(shippingCart.subtotal);
         document.getElementById("costoTotal").innerHTML=`USD ${total}`
         shippingCart.costoEnvio=JSON.stringify(shippingCost)
+        shippingCart.total=JSON.stringify(total);
         localStorage.setItem('datosCarrito', JSON.stringify(shippingCart));
     }));
 });
