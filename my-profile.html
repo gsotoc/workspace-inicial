@@ -104,7 +104,7 @@
     <div class="container">
       <h2 class="text-center m-5">Mi Perfil</h2>
       <hr>
-      <form action="/guardar_perfil" method="post">
+      <form class="needs-validation" method="" novalidate>
         <div class="col-12 row m-3">
           <div class="col-6 mt-2">
             <label for="nombre" class="form-label">Nombre</label>
@@ -124,11 +124,11 @@
           </div>
           <div class="col-6 mt-2">
             <label for="exampleFormControlInput1" class="form-label">Email*</label>
-            <input type="email" class="form-control" id="emailUser" placeholder="nombre@ejemplo.com">
+            <input type="email" class="form-control" id="emailUser" placeholder="nombre@ejemplo.com" required>
           </div>
           <div class="col-6 mt-2">
             <label for="telefono" class="form-label">Teléfono de contacto</label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="090000000">
+            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="090000000" required>
           </div>
         </div>
         <button type="submit" class="btn btn-primary m-2">Guardar</button>
