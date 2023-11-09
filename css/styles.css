@@ -245,4 +245,8 @@ span.font {
   background-color: #444;
 }
 
-
+#imagenMostrada{
+  display: none; 
+  width: 80px; 
+  height: 80px;
+}
