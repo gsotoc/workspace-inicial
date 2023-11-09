@@ -46,6 +46,7 @@ function cargarDatosUsuarioEnForm() {
         }
     }
 }
+//Agregamos foto de perfil
 function guardarDatosFormulario(){
     const user=localStorage.getItem("user") || sessionStorage.getItem("user");
     let objUsuario=JSON.parse(localStorage.getItem("userInfo"))||{}
