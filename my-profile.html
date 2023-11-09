@@ -82,18 +82,18 @@
                       d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                   </svg>
                 </button>
-              
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                  <h4 class="offcanvas-title" id="offcanvasRightLabel">Carrito de compras</h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body" id="carrito">
-                  <a href="cart.html"><button type="button" class="btn btn-success">Ir a mi carrito</button></a>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                  aria-labelledby="offcanvasRightLabel">
+                  <div class="offcanvas-header">
+                    <h4 class="offcanvas-title" id="offcanvasRightLabel">Carrito de compras</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body" id="carrito">
+                    <a href="cart.html"><button type="button" class="btn btn-success">Ir a mi carrito</button></a>
+                  </div>
                 </div>
               </div>
-            </div>
           </li>
       </div>
       </ul>
@@ -112,7 +112,8 @@
           </div>
           <div class="col-6 mt-2">
             <label for="segundo_nombre" class="form-label">Segundo nombre</label>
-            <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" placeholder="Segundo Nombre">
+            <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre"
+              placeholder="Segundo Nombre">
           </div>
           <div class="col-6 mt-2">
             <label for="apellido" class="form-label">Apellido</label>
@@ -120,7 +121,8 @@
           </div>
           <div class="col-6 mt-2">
             <label for="segundo_apellido" class="form-label">Segundo apellido</label>
-            <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido" placeholder="Segundo Apellido">
+            <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido"
+              placeholder="Segundo Apellido">
           </div>
           <div class="col-6 mt-2">
             <label for="exampleFormControlInput1" class="form-label">Email*</label>
@@ -129,6 +131,11 @@
           <div class="col-6 mt-2">
             <label for="telefono" class="form-label">Teléfono de contacto</label>
             <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="090000000" required>
+          </div>
+          <div class="text-center">
+            <label for="formFileLg" class="form-label">Foto de perfil</label>
+            <input class="form-control form-control-lg" id="profileImg" type="file" onchange="convertirIMGB64()" accept="image/png, image/jpeg">
+            <img id="imagenMostrada" style="display: none;">
           </div>
         </div>
         <button type="submit" class="btn btn-primary m-2">Guardar</button>
@@ -140,7 +147,8 @@
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
