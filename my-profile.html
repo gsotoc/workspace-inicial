@@ -101,13 +101,14 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="row">
-        <h2 class="text-end m-3 col-6">Mi Perfil</h2>
-        <div class="col-5">
-          <img class="p-0"id="imagenMostrada">
+    <div class="container mt-2 text-center">
+      <div class="row col-10 d-flex">
+        <h2 class="col-6 text-center">Mi Perfil</h2>
+        <div class="col-6">
+         <img class="float-end" id="imagenMostrada">
         </div>
       </div>
+      
       
       <hr>
       <form class="needs-validation" method="" novalidate>
@@ -138,7 +139,7 @@
             <label for="telefono" class="form-label">Teléfono de contacto</label>
             <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="090000000" required>
           </div>
-          <div class="text-center">
+          <div class="text-center mt-2">
             <label for="formFileLg" class="form-label">Foto de perfil</label>
             <input class="form-control form-control-lg" id="profileImg" type="file" onchange="convertirIMGB64()" accept="image/png, image/jpeg">
           </div>
