@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
     //Guardamos el id de la categoría almacenada en localStorage para utilizarla posteriormente
     let catID=localStorage.getItem("catID");
     //Hacemos la petición con la función getJSONData y así guardarla en la variable catProducts
-    let catProducts= await getJSONData(`https://japceibal.github.io/emercado-api/cats_products/${catID}.json`);
+    let catProducts= await getJSONData(PRODUCTS_URL+catID);
     //Guardamos los específicamente los productos en el array en la variable
      productsArray=catProducts.data.products;
      //Guardamos el específicamente el nombre de la categoría en la variable

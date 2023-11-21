@@ -1,10 +1,12 @@
+const port="http://localhost:3000/"
+const CART_INFO_URL = port+"user_cart/";
 // voy a hacer que el boton de iniciar sesión lleve al inicio
 const recordarmeChkBox=document.getElementById("recordarme");
 const userTxt=document.getElementById("usuario");
 const passwordTxt=document.getElementById("contraseña");
 const loginForm = document.getElementById("loginForm");
 async function CargarProducto() {
- let precarga = await fetch(`https://japceibal.github.io/emercado-api/user_cart/25801.json`).then(response=>{
+ let precarga = await fetch(CART_INFO_URL+"25801").then(response=>{
     if (response.ok) {
       return response.json();
     }else{

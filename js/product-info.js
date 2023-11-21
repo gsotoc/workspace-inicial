@@ -75,7 +75,7 @@ function formatearFecha(fecha) {
 document.addEventListener("DOMContentLoaded",async ()=>{
   //Tomamos los datos del producto según su ID el cual tenemos almacenado en localStorage
     let productID=localStorage.getItem("productID");
-    let product=await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
+    let product=await getJSONData(PRODUCT_INFO_URL+productID);
     product=product.data;
     //Tomamos los comentarios guardados en localStorage
     let comentariosLocalStorage=JSON.parse(localStorage.getItem("comments"))||[];
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded",async ()=>{
       localStorage.setItem('carritos',JSON.stringify(carritoLocalStorage))
       });
     //Tomamos los comentarios de la API
-    let comentarios=await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID+EXT_TYPE);
+    let comentarios=await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID);
     comentarios=comentarios.data
     //Juntamos los comentarios del producto que tenemos en localStorage y los que tomamos de la API, los guardamos en un array llamado commentArray
     commentArray=commentArray.concat(comentarios,comentariosLocalStorageProduct)
