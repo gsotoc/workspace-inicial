@@ -1,11 +1,21 @@
 const express = require('express');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const mariadb=require('mariadb');
+const SECRET_KEY="CLAVE ULTRA SECRETA"
+const pool = mariadb.createPool({
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "eMercado",
+    connectionLimit: 5,
+  });
 
 
 const app = express();
 const port = 3000;
 const keys = require('./settings/keys');
+const { access } = require('fs');
 
 
 const dataFolderPath = path.join(__dirname);
@@ -36,6 +46,14 @@ app.get('/cart/:id',(req, res)=>{
 });
 
 //Funciona
+app.use('/cats_products', (req,res,next)=>{
+    try {
+        const decoded=jwt.verify(req.headers["access-token"],SECRET_KEY);
+        next()
+    } catch (error) {
+        res.status(401).json({ message: "Usuario no autorizado"});
+    }
+    })
 app.get('/cats_products/:id',(req, res)=>{
     const catsproductsId = req.params.id;
     const filePath = path.join(dataFolderPath, 'cats_products', `${catsproductsId}.json`);
@@ -76,24 +94,52 @@ app.listen(port, ()=>{
 
 
 //Funcionalidad login
-app.post('/login', (req, res)=>{
+app.get("/login",async(req,res)=>{
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(
+        "SELECT email,password FROM users"
+        );
     
-    if(req.body.usuario == "usuario" && req.body.contra == "contra"){
-        const payload = {
-            check: true
-        };
-        const token = jwt.sign(payload, app.get('key'), 
-        {
-            expiresIn: '1m'
-        });
-        res.json({
-            status: 'ok',
-            message: "Todo OK",
-            token: token
-        }); 
+        res.json(rows)
+        return 0
+    } catch (error) {
+        res.status(500).send({message:"Se rompio el servidor"})
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+    return false;
+})
+
+
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    let valid = false;
+    let conn;
+
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(
+            `SELECT email, password FROM users WHERE email = ? AND password = ?`,
+            [email, password]
+        );
+
+        if (rows.length > 0) {
+            valid = true;
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Se rompio el servidor" });
+    } finally {
+        if (conn) conn.release(); //release to pool
+    }
+
+    if (valid) {
+        const token = jwt.sign({ email }, SECRET_KEY);
+        res.status(200).json({ token });
     } else {
-        res.json({
-            message: "Error"
-        })
+        res.status(401).json({ message: "Usuario y/o contraseña incorrecta"});
     }
 });
